@@ -1,5 +1,5 @@
 # SANDS OF SODIS
 
-Engine: Unity
+**Engine:** Unity
 
-Homepage: [sandsofsodis.com](https://www.sandsofsodis.com/)
+**Homepage:** [sandsofsodis.com](https://www.sandsofsodis.com/)
