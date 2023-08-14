@@ -57,7 +57,7 @@ public class SphereMenu : MonoBehaviour
 
     [Header("Party Member Info")]
 
-    public CharacterState character;
+    public BUnit character;
 
     // Evasion
     public PointerController pointerController;

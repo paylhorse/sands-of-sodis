@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PointerController : MonoBehaviour
 {
-    public PlayerState player;
+    public BUnit player;
     public EvasionController evasionController;
     public BattleCamera battleCamera;
 

@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using Pathfinding;
+using MoonSharp.Interpreter;
 
 //      +--------------+
 //     /|             /|
@@ -143,7 +144,9 @@ public class BUnit : MonoBehaviour
         // Update the health bar for the first time
         if (healthBar != null)
         {
-            healthBar.UpdateVitBar(currentHealth, maxHealth);
+	    int currentVIT = luaUnitReference.Table.Get("VIT");
+	    int maxVIT = luaUnitReference.Table.Get("maxVIT");
+            healthBar.UpdateVitBar(currentVIT, maxVIT);
         }
     }
 
@@ -186,6 +189,22 @@ public class BUnit : MonoBehaviour
         }
     }
 
+    // ---------- GETTERS ------------------------
+    public void GetCurrentVIT()
+    {
+	    return luaUnitReference.Table.Get("VIT").Number;
+    }
+
+    public void GetAGI()
+    {
+	    return luaUnitReference.Table.Get("AGI").Number;
+    }
+
+    public void GetACT()
+    {
+	    return luaUnitReference.Table.Get("ACT").Number;
+    }
+
     // ---------- IP AND ACT MANAGEMENT ----------
 
     public void SetIP(float value)
@@ -216,12 +235,16 @@ public class BUnit : MonoBehaviour
 
     public void TakeDamage(int damage, Transform source)
     {
-        CurrentHealth -= damage;
-
+	// Push damage to Lua 
+	luaBackbone.luaData.Call(luaUnitReference.Table.Get("takeDamage"), luaUnitReference, damage);	
+	// Pull back for checks
+	int currentVIT = luaUnitReference.Table.Get("VIT");
+	int maxVIT = luaUnitReference.Table.Get("maxVIT");
         // Update the health bar every time the character takes damage
-        healthBar.UpdateVitBar(currentHealth, maxHealth);
+        healthBar.UpdateVitBar(currentVIT, maxVIT);
 
-        if (currentHealth <= 0)
+	// Death check
+        if (currentVIT <= 0)
         {
             Die();
         }
@@ -246,9 +269,9 @@ public class BUnit : MonoBehaviour
             CreateBloodDecal(hit.point, decalRotation);
         }
 
-        // Apply Knockback
+        // Apply knockback
         RichAI victimAI = GetComponent<RichAI>();
-        ApplyKnockback(source, victimAI, 2f, 0.2f); // Adjust the values as needed
+        ApplyKnockback(source, victimAI, 2f, 0.2f);
     }
 
     private void CreateBloodDecal(Vector3 position, Quaternion rotation)
@@ -323,7 +346,6 @@ public class BUnit : MonoBehaviour
         StartCoroutine(DestroyDamageText(missText.gameObject, 1f));
     }
 
-
     private IEnumerator ActivateBloodEffect()
     {
         bloodParticleEffect.gameObject.SetActive(true);
@@ -340,7 +362,7 @@ public class BUnit : MonoBehaviour
 
     public void Heal(int healAmount)
     {
-        CurrentHealth += healAmount;
+	luaBackbone.luaData.Call(luaUnitReference.Table.Get("gainVIT"), luaUnitReference, healAmount);
     }
 
     // ---------- AGENT MANAGEMENT ----------

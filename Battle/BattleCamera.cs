@@ -99,14 +99,14 @@ public class BattleCamera : MonoBehaviour
 
     private void KeepCameraCenteredOnCombatants()
     {
-        List<CharacterState> combatants = battleManager.Combatants;
+        List<BUnit> combatants = battleManager.Combatants;
 
         if (combatants.Count > 0)
         {
             // Calculate the average position of all combatants
             Vector3 sumPosition = Vector3.zero;
 
-            foreach (CharacterState combatant in combatants)
+            foreach (BUnit combatant in combatants)
             {
                 sumPosition += new Vector3(combatant.transform.position.x, 0, combatant.transform.position.z);
             }
@@ -116,7 +116,7 @@ public class BattleCamera : MonoBehaviour
             // Calculate the maximum distance from the average position to any combatant
             float radius = 0.0f;
 
-            foreach (CharacterState combatant in combatants)
+            foreach (BUnit combatant in combatants)
             {
                 float distance = Vector3.Distance(centroidPosition, new Vector3(combatant.transform.position.x, 0, combatant.transform.position.z));
                 radius = Mathf.Max(radius, distance);

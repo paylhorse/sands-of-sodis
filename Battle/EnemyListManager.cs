@@ -8,11 +8,11 @@ using TMPro;
 public class EnemyListManager : MonoBehaviour
 {
     [SerializeField] private GameObject enemyListItemPrefab;
-    private List<EnemyState> enemies;
+    private List<EnemyUnit> enemies;
 
     void Start()
     {
-        enemies = new List<EnemyState>(FindObjectsOfType<EnemyState>());
+        enemies = new List<EnemyUnit>(FindObjectsOfType<EnemyUnit>());
         UpdateEnemyList();
     }
 
@@ -25,7 +25,7 @@ public class EnemyListManager : MonoBehaviour
         }
 
         // Add a new list item for each enemy
-        foreach (EnemyState enemy in enemies)
+        foreach (EnemyUnit enemy in enemies)
         {
             GameObject listItem = Instantiate(enemyListItemPrefab, transform);
             TextMeshProUGUI listItemText = listItem.GetComponent<TextMeshProUGUI>(); // Use Text instead of TextMeshProUGUI if you're using Unity's default UI Text component

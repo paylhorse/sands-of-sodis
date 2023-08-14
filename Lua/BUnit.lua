@@ -25,6 +25,8 @@ function BUnit.new(name, STR, RES, AGI, DEX, VAS, level)
     self.VAS = VAS or 10
     -- (Vascularity)
     
+    ---------------------
+    
     -- Derived Stats
     self.MOV = AGI / 4
     -- {Move Speed}

@@ -74,7 +74,7 @@ public class TargetSelectController : MonoBehaviour
     private void SelectCurrentEnemy()
     {
         // Set the currently selected enemy in the Player Character
-        PlayerState player = battleManager.Combatants[0] as PlayerState; // Assuming the first combatant is always the player
+        BUnit player = battleManager.Combatants[0] as BUnit; // Assuming the first combatant is always the player
         player.selectedEnemy = battleManager.Enemies[currentEnemyIndex].transform; // Assuming the remaining combatants are enemies
         battleManager.ContinueTime();
         Destroy(currentCursor);
@@ -95,7 +95,7 @@ public class TargetSelectController : MonoBehaviour
             // Debugging output
             // Debug.Log("Raycast hit: " + hit.transform.name);
 
-            EnemyState enemy = hit.transform.GetComponent<EnemyState>();
+            EnemyUnit enemy = hit.transform.GetComponent<EnemyUnit>();
 
             if (enemy != null)
             {

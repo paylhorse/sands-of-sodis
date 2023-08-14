@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BattleMenu : MonoBehaviour
 {
-    private PlayerState player;
+    private BUnit player;
     private SphereMenu sphereMenu;
 
     private void Start()
     {
         // Find and store reference to the Player in the scene
-        player = FindObjectOfType<PlayerState>();
+        player = FindObjectOfType<BUnit>();
 
         // Find and store reference to the SphereMenu in the scene
         sphereMenu = FindObjectOfType<SphereMenu>();

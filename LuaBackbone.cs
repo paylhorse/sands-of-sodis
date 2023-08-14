@@ -17,7 +17,7 @@ using MoonSharp.Interpreter;
 // MOONSCRIPT SYNTAX:
 // Read:
 // DynValue XXXValue = luaData.Globals.Get("XXX");
-// int VIT = VITValue.Int;
+// int VIT = VITValue.Number;
 // Write:
 // luaData.Globals.Set("XXX", DynValue.NewNumber(newValue));
 //
@@ -26,7 +26,7 @@ public class LuaBackbone : MonoBehaviour
 {
     public static LuaBackbone Instance { get; private set; }
     
-    private Script luaData;
+    public Script luaData;
 
     private void Awake()
     {
@@ -65,10 +65,10 @@ public class LuaBackbone : MonoBehaviour
 
         // Initialize Determination, Toria's unique stat
 	// Read base stats:
-        int STR = Toria.Table.Get("STR").Int;
-        int RES = Toria.Table.Get("RES").Int;
-        int AGI = Toria.Table.Get("AGI").Int;
-        int DEX = Toria.Table.Get("DEX").Int;
+        int STR = Toria.Table.Get("STR").Number;
+        int RES = Toria.Table.Get("RES").Number;
+        int AGI = Toria.Table.Get("AGI").Number;
+        int DEX = Toria.Table.Get("DEX").Number;
 	// Calculate and add DET to table:
         int maxDET = (STR * 6 + RES * 6 + AGI * 6 + DEX * 6) / 4;
         Toria.Table.Set("maxDET", maxDET);

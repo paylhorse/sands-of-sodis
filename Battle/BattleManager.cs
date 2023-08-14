@@ -31,16 +31,16 @@ public class BattleManager : MonoBehaviour
 
     private bool timeFrozen = false;
 
-    private PlayerState player;
+    private BUnit player;
     [SerializeField] private List<EnemyUnit> enemies;
-    [SerializeField] private List<CharacterState> combatants;
+    [SerializeField] private List<BUnit> combatants;
 
     public List<EnemyUnit> Enemies
     {
         get { return enemies; }
     }
 
-    public List<CharacterState> Combatants
+    public List<BUnit> Combatants
     {
         get { return combatants; }
     }
@@ -50,7 +50,7 @@ public class BattleManager : MonoBehaviour
     private void Start()
     {
         // Find the Player and all Enemies in the scene
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerState>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<BUnit>();
         GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
         enemies = new List<EnemyUnit>();
 
@@ -60,11 +60,11 @@ public class BattleManager : MonoBehaviour
         }
 
         // Combine player and enemies into a single list of combatants
-        combatants = new List<CharacterState> { player };
-        combatants.AddRange(enemies.Cast<CharacterState>());
+        combatants = new List<BUnit> { player };
+        combatants.AddRange(enemies.Cast<BUnit>());
 
         // Set a random starting IP for each combatant
-        foreach (CharacterState combatant in combatants)
+        foreach (BUnit combatant in combatants)
         {
             combatant.SetIP(Random.Range(0f, 40f));
         }
@@ -79,7 +79,7 @@ public class BattleManager : MonoBehaviour
 	    // Create a list to contain any enemies found at VIT = 0
             List<EnemyUnit> deadEnemies = new List<EnemyUnit>();
 
-            foreach (CharacterState combatant in combatants)
+            foreach (BUnit combatant in combatants)
             {
 		// KILL ENEMIES
                 // If the combatant is an enemy and its health is less than or equal to 0, add it to the deadEnemies list
@@ -98,7 +98,7 @@ public class BattleManager : MonoBehaviour
                     if(combatant.actGauge >= ipMax)
                     {
                         // If the ACT gauge is full, execute the command
-                        if(combatant is PlayerState)
+                        if(combatant is BUnit)
                         {
                             ExecutePlayerCommand();
                         }
@@ -117,7 +117,7 @@ public class BattleManager : MonoBehaviour
 
                     if(combatant.GetCurrentIP() >= ipMax)
                     {
-                        if(combatant is PlayerState)
+                        if(combatant is BUnit)
                         {
                             FreezeTime();
                             CommandInput();
@@ -146,7 +146,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    private void UpdateBattleboyPosition(CharacterState character)
+    private void UpdateBattleboyPosition(BUnit character)
     {
         float newPosition;
 
@@ -166,7 +166,7 @@ public class BattleManager : MonoBehaviour
 
     private void CommandInput()
     {
-        player.currentState = CharacterState.CharacterStateMachine.SELECTING;
+        player.currentState = BUnit.CharacterStateMachine.SELECTING;
         UISoundManager.PlaySound("Appear");
         sphereMenu.Activate();
     }
@@ -185,7 +185,7 @@ public class BattleManager : MonoBehaviour
         Debug.Log("Time Frozen!");
         timeFrozen = true;
 
-        foreach (CharacterState combatant in combatants)
+        foreach (BUnit combatant in combatants)
         {
             // If this combatant is not the player, stop animator
             if (combatant != player)
@@ -201,7 +201,7 @@ public class BattleManager : MonoBehaviour
 
         timeFrozen = false;
 
-        foreach (CharacterState combatant in combatants)
+        foreach (BUnit combatant in combatants)
         {
             combatant.animator.speed = 1;
         }

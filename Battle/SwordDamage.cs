@@ -6,7 +6,7 @@ public class SwordDamage : MonoBehaviour
 {
     [SerializeField] private int damageAmount = 10;
 
-    public CharacterState wielder; // Wielder of the weapon
+    public BUnit wielder; // Wielder of the weapon
 
     private Collider swordCollider;
 
@@ -46,7 +46,7 @@ public class SwordDamage : MonoBehaviour
         if (other.gameObject == wielder.gameObject) return;
 
         // Check if the collided object has the Character script component
-        CharacterState character = other.GetComponent<CharacterState>();
+        BUnit character = other.GetComponent<BUnit>();
 
         // Apply damage to the character
         if (character != null)
