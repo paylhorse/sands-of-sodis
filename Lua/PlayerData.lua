@@ -9,8 +9,7 @@
 --      '.       .'
 --        '-----' 
 --
--- Units that populate the Battle scene
--- ** Represents the Player's current state in the game
+-- Represents the Player's current state and progress in the game
 
 -- Define the PlayerData class
 PlayerData = {}
