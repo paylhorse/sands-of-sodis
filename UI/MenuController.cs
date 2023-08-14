@@ -220,11 +220,22 @@ public class MenuController : MonoBehaviour
         PlayCursorMoveSound();
     }
 
-        private void PlayCursorMoveSound()
+    private void PlayCursorMoveSound()
     {
         if (cursorMoveSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(cursorMoveSound);
+        }
+    }
+
+    public void OnButtonHover(Button hoveredButton)
+    {
+	int buttonIndex = menuButtons.IndexOf(hoveredButton);
+        if(buttonIndex != -1)
+        {
+            currentIndex = buttonIndex;
+            PositionHandCursor();
+            PlayCursorMoveSound();
         }
     }
 }
