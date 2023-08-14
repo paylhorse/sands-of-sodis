@@ -1,5 +1,15 @@
--- ** A Character-Unit, representing the state of an individual
--- Backbone of the Character C# class
+--                  .-.
+--                 (   )
+--                  '-'
+--        .-"""-.
+--      .`       `.
+--     /  B(ATTLE) \
+--     ;  UNIT     ;
+--     \           /
+--      '.       .'
+--        '-----' 
+--
+-- Units that populate the Battle scene
 
 -- Define the BUnit class
 BUnit = {}

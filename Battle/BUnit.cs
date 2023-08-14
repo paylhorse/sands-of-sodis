@@ -144,8 +144,8 @@ public class BUnit : MonoBehaviour
         // Update the health bar for the first time
         if (healthBar != null)
         {
-	    int currentVIT = luaUnitReference.Table.Get("VIT");
-	    int maxVIT = luaUnitReference.Table.Get("maxVIT");
+	    int currentVIT = (int)luaUnitReference.Table.Get("VIT").Number;
+	    int maxVIT = (int)luaUnitReference.Table.Get("maxVIT").Number;
             healthBar.UpdateVitBar(currentVIT, maxVIT);
         }
     }
@@ -190,19 +190,19 @@ public class BUnit : MonoBehaviour
     }
 
     // ---------- GETTERS ------------------------
-    public void GetCurrentVIT()
+    public int GetCurrentVIT()
     {
-	    return luaUnitReference.Table.Get("VIT").Number;
+	    return (int)luaUnitReference.Table.Get("VIT").Number;
     }
 
-    public void GetAGI()
+    public int GetAGI()
     {
-	    return luaUnitReference.Table.Get("AGI").Number;
+	    return (int)luaUnitReference.Table.Get("AGI").Number;
     }
 
-    public void GetACT()
+    public int GetACT()
     {
-	    return luaUnitReference.Table.Get("ACT").Number;
+	    return (int)luaUnitReference.Table.Get("ACT").Number;
     }
 
     // ---------- IP AND ACT MANAGEMENT ----------
@@ -238,8 +238,8 @@ public class BUnit : MonoBehaviour
 	// Push damage to Lua 
 	luaBackbone.luaData.Call(luaUnitReference.Table.Get("takeDamage"), luaUnitReference, damage);	
 	// Pull back for checks
-	int currentVIT = luaUnitReference.Table.Get("VIT");
-	int maxVIT = luaUnitReference.Table.Get("maxVIT");
+	int currentVIT = (int)luaUnitReference.Table.Get("VIT").Number;
+	int maxVIT = (int)luaUnitReference.Table.Get("maxVIT").Number;
         // Update the health bar every time the character takes damage
         healthBar.UpdateVitBar(currentVIT, maxVIT);
 

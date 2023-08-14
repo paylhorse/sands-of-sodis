@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MoonSharp.Interpreter;
+using System;
 
 //      +--------------+
 //     /|             /|
@@ -57,22 +58,24 @@ public class LuaBackbone : MonoBehaviour
         // Create an instance of PlayerData
         luaData.Globals["playerData"] = luaData.DoString("return PlayerData.new()");
 
-        // Create Toria at base level
+        // Create Toria and his reference
         DynValue Toria = luaData.DoString("return BUnit.new('Toria', 12, 11, 10, 11, 7 )");
+	luaData.Globals["ToriaReference"] = Toria;
 
         // Add Toria to the player's party
-        luaData.DoString($"playerData:addUnit({Toria.ToPrintableString()})");
+        luaData.DoString($"playerData:addUnit(ToriaReference)");
 
         // Initialize Determination, Toria's unique stat
 	// Read base stats:
-        int STR = Toria.Table.Get("STR").Number;
-        int RES = Toria.Table.Get("RES").Number;
-        int AGI = Toria.Table.Get("AGI").Number;
-        int DEX = Toria.Table.Get("DEX").Number;
+        int STR = (int)Toria.Table.Get("STR").Number;
+        int RES = (int)Toria.Table.Get("RES").Number;
+        int AGI = (int)Toria.Table.Get("AGI").Number;
+        int DEX = (int)Toria.Table.Get("DEX").Number;
 	// Calculate and add DET to table:
         int maxDET = (STR * 6 + RES * 6 + AGI * 6 + DEX * 6) / 4;
-        Toria.Table.Set("maxDET", maxDET);
-        Toria.Table.Set("DET", maxDET);
+	int DET = maxDET;
+        Toria.Table.Set("maxDET", DynValue.NewNumber(maxDET));
+        Toria.Table.Set("DET", DynValue.NewNumber(DET));
     }
 
     public void LuaLog(string message)

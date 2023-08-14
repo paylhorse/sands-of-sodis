@@ -83,7 +83,7 @@ public class BattleManager : MonoBehaviour
             {
 		// KILL ENEMIES
                 // If the combatant is an enemy and its health is less than or equal to 0, add it to the deadEnemies list
-                if (combatant is EnemyUnit enemy && enemy.GetCurrentVIT <= 0)
+                if (combatant is EnemyUnit enemy && enemy.GetCurrentVIT() <= 0)
                 {
                     deadEnemies.Add(enemy);
                     continue;  // Skip the rest of the loop for this combatant
@@ -93,7 +93,7 @@ public class BattleManager : MonoBehaviour
                 {
                     Debug.Log("A Combatant is Acting!");
                     // If the character is in the ACT phase
-                    combatant.actGauge += (combatant.GetACT * actFactor * Time.deltaTime) / combatant.GetCommandExecutionTime();
+                    combatant.actGauge += (combatant.GetACT() * actFactor * Time.deltaTime) / combatant.GetCommandExecutionTime();
 
                     if(combatant.actGauge >= ipMax)
                     {
@@ -113,7 +113,7 @@ public class BattleManager : MonoBehaviour
                 else
                 {
                     // If the character is not in the ACT phase
-                    combatant.GainIP(combatant.GetAGI * ipFactor * Time.deltaTime);
+                    combatant.GainIP(combatant.GetAGI() * ipFactor * Time.deltaTime);
 
                     if(combatant.GetCurrentIP() >= ipMax)
                     {

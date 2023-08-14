@@ -1,3 +1,15 @@
+--                  .-.
+--                 (   )
+--                  '-'
+--        .-"""-.
+--      .`       `.
+--     /  PLAYER   \
+--     ;  DATA     ;
+--     \           /
+--      '.       .'
+--        '-----' 
+--
+-- Units that populate the Battle scene
 -- ** Represents the Player's current state in the game
 
 -- Define the PlayerData class
