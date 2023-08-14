@@ -3,9 +3,21 @@ using TMPro;
 using UnityEngine;
 using Pathfinding;
 
-// **** Base Class for combat units
+//      +--------------+
+//     /|             /|
+//    *--+-----------* |
+//    | | B(ATTLE)   | |
+//    | | UNIT       | |
+//    | +------------|-+
+//    |/             |/
+//    *--------------*
+//
+// C# class and interface for BUnits
 
-public class CUnit : MonoBehaviour
+// Each BUnit is allocated a Lua table for storing and managing stats, other data.
+// The BUnit's in-game STATE, however, is managed in this C# class.
+
+public class BUnit : MonoBehaviour
 {
     // Get LuaBackbone instance
     LuaBackbone luaBackbone = LuaBackbone.Instance;
@@ -113,10 +125,13 @@ public class CUnit : MonoBehaviour
         BattleboyInstance = Instantiate(BattleboyPrefab, Vector2.zero, Quaternion.identity, BattleboyHolder);
     }
 
+    // The 
+
     protected virtual void Start()
     {	
-	// Create the CUnit in Lua
-        currentVIT = maxHealth;
+	// Create the BUnit in Lua
+	CreateUnitInLua(name, STR, RES, AGI, DEX, VAS);
+	
         currentState = CharacterStateMachine.WAITING;
         richAI = GetComponent<RichAI>();
 
@@ -135,7 +150,7 @@ public class CUnit : MonoBehaviour
     public DynValue CreateUnitInLua(string name, int STR, int RES, int AGI, int DEX, int VAS)
     {
 	// The logic for creating a unit in Lua
-    	luaUnitReference = luaBackbone.luaData.DoString($"return CUnit.new('{name}', {STR}, {RES}, {AGI}, {DEX}, {VAS})");
+    	luaUnitReference = luaBackbone.luaData.DoString($"return BUnit.new('{name}', {STR}, {RES}, {AGI}, {DEX}, {VAS})");
     	return luaUnitReference;
     }
 

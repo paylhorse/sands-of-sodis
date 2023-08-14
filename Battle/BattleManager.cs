@@ -21,23 +21,21 @@ public class BattleManager : MonoBehaviour
     public SphereMenu sphereMenu;
     public CardSelectController cardSelect;
 
-    // IP management:
-    // 
+    // IP and ACT management:
     public float ipMax = 100f;
-    public float ipGainPerSecond = 10f;
-    public float actGainPerSecond = 40f;
+    public float ipFactor = 10f;
+    public float actFactor = 40f;
 
     public float ipBarLength = 407.0f;
     public float actBarLength = 158.0f;
 
     private bool timeFrozen = false;
 
-
     private PlayerState player;
-    [SerializeField] private List<EnemyState> enemies;
+    [SerializeField] private List<EnemyUnit> enemies;
     [SerializeField] private List<CharacterState> combatants;
 
-    public List<EnemyState> Enemies
+    public List<EnemyUnit> Enemies
     {
         get { return enemies; }
     }
@@ -54,11 +52,11 @@ public class BattleManager : MonoBehaviour
         // Find the Player and all Enemies in the scene
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerState>();
         GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
-        enemies = new List<EnemyState>();
+        enemies = new List<EnemyUnit>();
 
         foreach (GameObject enemyObject in enemyObjects)
         {
-            enemies.Add(enemyObject.GetComponent<EnemyState>());
+            enemies.Add(enemyObject.GetComponent<EnemyUnit>());
         }
 
         // Combine player and enemies into a single list of combatants
@@ -79,13 +77,13 @@ public class BattleManager : MonoBehaviour
         if (!timeFrozen)
         {
 	    // Create a list to contain any enemies found at VIT = 0
-            List<EnemyState> deadEnemies = new List<EnemyState>();
+            List<EnemyUnit> deadEnemies = new List<EnemyUnit>();
 
             foreach (CharacterState combatant in combatants)
             {
 		// KILL ENEMIES
                 // If the combatant is an enemy and its health is less than or equal to 0, add it to the deadEnemies list
-                if (combatant is EnemyState enemy && enemy.CurrentHealth <= 0)
+                if (combatant is EnemyUnit enemy && enemy.GetCurrentVIT <= 0)
                 {
                     deadEnemies.Add(enemy);
                     continue;  // Skip the rest of the loop for this combatant
@@ -95,7 +93,7 @@ public class BattleManager : MonoBehaviour
                 {
                     Debug.Log("A Combatant is Acting!");
                     // If the character is in the ACT phase
-                    combatant.actGauge += (combatant.ACT * actGainPerSecond * Time.deltaTime) / combatant.GetCommandExecutionTime();
+                    combatant.actGauge += (combatant.GetACT * actFactor * Time.deltaTime) / combatant.GetCommandExecutionTime();
 
                     if(combatant.actGauge >= ipMax)
                     {
@@ -104,9 +102,9 @@ public class BattleManager : MonoBehaviour
                         {
                             ExecutePlayerCommand();
                         }
-                        else if(combatant is EnemyState)
+                        else if(combatant is EnemyUnit)
                         {
-                            ExecuteEnemyCommand((EnemyState)combatant);
+                            ExecuteEnemyCommand((EnemyUnit)combatant);
                         }
 
                         combatant.actGauge = 0;
@@ -115,7 +113,7 @@ public class BattleManager : MonoBehaviour
                 else
                 {
                     // If the character is not in the ACT phase
-                    combatant.GainIP(combatant.AGI * ipGainPerSecond * Time.deltaTime);
+                    combatant.GainIP(combatant.GetAGI * ipFactor * Time.deltaTime);
 
                     if(combatant.GetCurrentIP() >= ipMax)
                     {
@@ -126,7 +124,7 @@ public class BattleManager : MonoBehaviour
                             combatant.actGauge += 1;
                             combatant.ipGauge = 0;
                         }
-                        else if(combatant is EnemyState)
+                        else if(combatant is EnemyUnit)
                         {
                             combatant.SetIP(0);
                             //EnemyTurn((Enemy)combatant);
@@ -140,7 +138,7 @@ public class BattleManager : MonoBehaviour
             }
 
             // Remove dead enemies from the lists
-            foreach (EnemyState deadEnemy in deadEnemies)
+            foreach (EnemyUnit deadEnemy in deadEnemies)
             {
                 combatants.Remove(deadEnemy);
                 enemies.Remove(deadEnemy);
@@ -173,7 +171,7 @@ public class BattleManager : MonoBehaviour
         sphereMenu.Activate();
     }
 
-    private void EnemyTurn(EnemyState enemyCombatant)
+    private void EnemyTurn(EnemyUnit enemyCombatant)
     {
         // Enemy Command Select logic
         Debug.Log("Enemy Turn");
@@ -225,7 +223,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void ExecuteEnemyCommand(EnemyState enemyCombatant)
+    public void ExecuteEnemyCommand(EnemyUnit enemyCombatant)
     {
         //
     }

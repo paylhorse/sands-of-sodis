@@ -1,13 +1,13 @@
 -- ** A Character-Unit, representing the state of an individual
 -- Backbone of the Character C# class
 
--- Define the CUnit class
-CUnit = {}
-CUnit.__index = CUnit
+-- Define the BUnit class
+BUnit = {}
+BUnit.__index = BUnit
 
--- Constructor for CUnit
-function CUnit.new(name, STR, RES, AGI, DEX, VAS, level)
-    local self = setmetatable({}, CUnit)
+-- Constructor for BUnit
+function BUnit.new(name, STR, RES, AGI, DEX, VAS, level)
+    local self = setmetatable({}, BUnit)
 
     -- Info
     self.name = name or "Unnamed"
@@ -50,7 +50,7 @@ function CUnit.new(name, STR, RES, AGI, DEX, VAS, level)
 end
 
 -- Setter Functions
-function CUnit:setVIT(value)
+function BUnit:setVIT(value)
     if value < 0 then
         self.VIT = 0
     elseif value > self.maxVIT then
@@ -60,12 +60,12 @@ function CUnit:setVIT(value)
     end
 end
 
--- Other methods for the CUnit class
-function CUnit:takeDamage(damage)
+-- Other methods for the BUnit class
+function BUnit:takeDamage(damage)
     self.VIT -= self.VIT
 end
 
-function CUnit:gainVIT(healing)
+function BUnit:gainVIT(healing)
     if (self.VIT + healing) > self.maxVIT then
         self.VIT = self.maxVIT
     else
