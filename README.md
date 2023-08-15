@@ -37,7 +37,9 @@ This should display the enemy you just created.
 **Use the** `check` **command to print an instanced enemy's level, stats or equipped gear.**
 
 `check chosenEnemyName level`
+
 `check chosenEnemyName AGI`
+
 `check chosenEnemyName gearset`
 
 
@@ -48,6 +50,7 @@ This should display the enemy you just created.
 Setting a level imposes a default set of stats, for an enemy of that type and level.
 
 `modify chosenEnemyName AGI 16`
+
 `modify chosenEnemyName gearset [headName, bodyName, legsName, ringName, mainHandName, offHandName]`
 
 The enemy's now registered in the kernel. We bring it into the field by **creating a battle**:
@@ -69,6 +72,7 @@ The enemy will behave as it does in the main game, actively searching for the pl
 **Use** `freeze` **to stop all enemies in their tracks.**
 
 `freeze on`
+
 `freeze off`
 
 This is useful if you'd like to spawn multiple battles, to simulate chain encounters.
