@@ -8,19 +8,25 @@
 
 ## Console Commands
 
+I've chosen to make public the robust Debug Console being used internally for balancing: you can find it in the Dev Room.
+
 Commands used in the in-game console are structured as follows:
 
 **action** *subjectType* (subject) value
 
 ### Running a Battle
 
+**Use the** `help` **command for a list of enemy types.
+
+`help enemy`
+
 **Start by using the** `create` **command, to add an instance of a certain enemy to the kernel.**
 
-`create enemy ('enemyName', 'chosenName', level)`
+`create enemy ('enemyType', 'chosenEnemyName')`
 
 Optionally:
 
-`create enemy ('enemyName', 'chosenName', level, STR, RES, AGI, DEX, VAS)`
+`create enemy ('enemyType', 'chosenEnemyName', level, STR, RES, AGI, DEX, VAS)`
 
 **Use the** `list` **command to query the current instance.**
 
@@ -30,20 +36,23 @@ This should display the enemy you just created.
 
 **Use the** `check` **command to print an instanced enemy's level, stats or equipped gear.**
 
-`check chosenName level`
-`check chosenName AGI`
+`check chosenEnemyName level`
+`check chosenEnemyName AGI`
+`check chosenEnemyName gearset`
+
 
 **Use the** `modify` **command to update an instanced enemy's level, stats or equipped gear.**
 
-`modify chosenName level 10`
+`modify chosenEnemyName level 10`
 
 Setting a level imposes a default set of stats, for an enemy of that type and level.
 
-`modify chosenName AGI 16`
+`modify chosenEnemyName AGI 16`
+`modify chosenEnemyName gearset (headName, bodyName, legsName, ringName, mainHandName, offHandName)`
 
 The enemy's now registered in the kernel. We bring it into the field by **creating a battle**:
 
-`create battle (battleName, normal, chosenName1, chosenName2...)`
+`create battle (mapName, chosenBattleName, normal, chosenEnemyName1, chosenEnemyName2...)`
 
 The first parameter dictates starting positions: *normal*, *advantage* or *disadvantage*.
 
@@ -51,13 +60,13 @@ The first parameter dictates starting positions: *normal*, *advantage* or *disad
 
 **Use the** `spawn` **command to instantiate the battle, in the form of the leading enemy.**
 
-`spawn battleName`
+`spawn chosenBattleName`
 
 The enemy will behave as it does in the main game, actively searching for the player.
 
 ### Special Commands
 
-**Use** `freeze` **to stop all enemies in their tracks.*
+**Use** `freeze` **to stop all enemies in their tracks.**
 
 `freeze on`
 `freeze off`
