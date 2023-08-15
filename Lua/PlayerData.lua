@@ -22,7 +22,7 @@ function PlayerData.new()
     self.party = {}
     self.inventory = {}
     self.coin = 0
-    self.saveLocation = null
+    self.saveLocation = nil
 
     return self
 end
@@ -41,13 +41,14 @@ function PlayerData:getUnit(name)
 end
 
 function PlayerData:gainCoin(profit)
-    self.coin += profit
+    self.coin = self.coin + profit
 end
 
 function PlayerData:loseCoin(loss)
-    self.coin -= loss
+    self.coin = self.coin - loss
     if self.coin <= 0 then
         self.coin = 0
     end
 end
 
+return PlayerData

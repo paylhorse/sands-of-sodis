@@ -74,16 +74,18 @@ end
 
 -- Other methods for the BUnit class
 function BUnit:takeDamage(damage)
-    self.VIT -= self.VIT
+    self.VIT = self.VIT - damage
 end
 
 function BUnit:gainVIT(healing)
     if (self.VIT + healing) > self.maxVIT then
         self.VIT = self.maxVIT
     else
-        self.VIT += self.VIT
+        self.VIT = self.VIT + healing
     end
 end
 
 --[[ self.maxDET = (STR * 6 + RES * 6 + AGI * 6 + DEX * 6) / 4
 self.DET = self.maxDET ]]--
+
+return BUnit

@@ -43,18 +43,50 @@ public class LuaBackbone : MonoBehaviour
         }
     }
 
-    public void BeginAnew()
+    public void Start()
     {
-        // Run when starting a New Game
-
+	    InitLuaEnvironment();
+    }
+    
+    private void InitLuaEnvironment()
+    {
         // Initialize the Lua Script
         luaData = new Script();
-        luaData.DoString("require('PlayerData')");
-        luaData.DoString("require('BUnit')");
+	// var loader = new MoonSharp.Interpreter.Loaders.UnityAssetsScriptLoader();
+	// loader.ModulePaths = new string[] { "Lua/?", "Lua/?.txt" };
+	// luaData.Options.ScriptLoader = loader;
+	// Debug.Log($"ScriptLoader set with paths: {string.Join(", ", loader.ModulePaths)}");
+	
+	// Load the TOML library directly
+	luaData.DoFile("Libraries/toml");
 
-	// Initialize LuaLog
-	luaData.Globals["Log"] = (Action<string>)LuaLog;
+        // Sample to test lua-toml; can be removed once verified
+        TestTomlLibrary();
 
+        luaData.DoFile("PlayerData");
+        luaData.DoFile("BUnit");
+
+        // Initialize LuaLog
+        luaData.Globals["Log"] = (Action<string>)LuaLog;
+    }
+    
+    private void TestTomlLibrary()
+    {
+	// DynValue result = luaData.DoString("return type(TOML)");
+	// DynValue result = luaData.DoString("return TOML.version");
+	// DynValue result = luaData.DoString("print(type(TOML))");
+	// DynValue result = luaData.DoString("return TOML");
+        DynValue result = luaData.DoString(@"
+             local t = TOML.parse('key = ""value""')
+             return t.key
+        ");
+
+        string valueFromToml = result.String;
+        Debug.Log(valueFromToml);  // Should print "value"
+    }
+
+    public void BeginAnew()
+    {
         // Create an instance of PlayerData
         luaData.Globals["playerData"] = luaData.DoString("return PlayerData.new()");
 

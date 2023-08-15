@@ -49,6 +49,7 @@ public class MenuController : MonoBehaviour
         }
     }
 
+    // NEW INPUT SYSTEM
     // void Update()
     // {
     //     // New Input System
@@ -235,7 +236,7 @@ public class MenuController : MonoBehaviour
         {
             currentIndex = buttonIndex;
             PositionHandCursor();
-            PlayCursorMoveSound();
+            // PlayCursorMoveSound();
         }
     }
 }

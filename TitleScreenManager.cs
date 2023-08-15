@@ -163,4 +163,10 @@ public class TitleScreenManager : MonoBehaviour
         ToriaPost.SetActive(false);
         ClockBGS.SetActive(false);
     }
+
+    private IEnumerator FirstTime()
+    {
+	// Activate Resolution Selector...
+	yield return null;
+    }
 }
