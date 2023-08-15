@@ -1,0 +1,9 @@
+# Scene Info
+[kura_01]
+name = "Kura Wakeup"
+order = ["Kura", "Toria", "Choice"]
+
+# A Line of Dialogue:
+[Kura]
+
+
