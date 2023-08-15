@@ -1,10 +1,10 @@
-![steam-header](https://github.com/paylhorse/sands-of-sodis/assets/74363924/994893e1-106c-4587-81ee-605e2a32972b)
+![steam-header][https://github.com/paylhorse/sands-of-sodis/assets/74363924/994893e1-106c-4587-81ee-605e2a32972b]
 
 **Source-Available**
 
 **Engine:** Unity
 
-**Homepage:** [sandsofsodis.com](https://www.sandsofsodis.com/)
+**Homepage:** [sandsofsodis.com][https://www.sandsofsodis.com/]
 
 ## Console Commands
 
@@ -12,7 +12,7 @@ I've chosen to make public the robust Debug Console being used internally for ba
 
 Commands used in the in-game console are structured as follows:
 
-**action** *subjectType* (subject) value
+**command** *argument1* *argument2* *argument3*...
 
 ### Running a Battle
 
@@ -22,11 +22,11 @@ Commands used in the in-game console are structured as follows:
 
 **Start by using the** `create` **command, to add an instance of a certain enemy to the kernel.**
 
-`create enemy ('enemyType', 'chosenEnemyName')`
+`create enemy ['enemyType', 'chosenEnemyName']`
 
 Optionally:
 
-`create enemy ('enemyType', 'chosenEnemyName', level, STR, RES, AGI, DEX, VAS)`
+`create enemy ['enemyType', 'chosenEnemyName', level, STR, RES, AGI, DEX, VAS]`
 
 **Use the** `list` **command to query the current instance.**
 
@@ -48,11 +48,11 @@ This should display the enemy you just created.
 Setting a level imposes a default set of stats, for an enemy of that type and level.
 
 `modify chosenEnemyName AGI 16`
-`modify chosenEnemyName gearset (headName, bodyName, legsName, ringName, mainHandName, offHandName)`
+`modify chosenEnemyName gearset [headName, bodyName, legsName, ringName, mainHandName, offHandName]`
 
 The enemy's now registered in the kernel. We bring it into the field by **creating a battle**:
 
-`create battle (mapName, chosenBattleName, normal, chosenEnemyName1, chosenEnemyName2...)`
+`create battle [mapName, chosenBattleName, normal, chosenEnemyName1, chosenEnemyName2...]`
 
 The first parameter dictates starting positions: *normal*, *advantage* or *disadvantage*.
 
