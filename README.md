@@ -8,7 +8,7 @@
 
 ## Console Commands
 
-I've chosen to make public the robust Debug Console being used internally for balancing: you can find it in the Dev Room.
+I've chosen to make public the robust Debug Console being used internally for balancing: it can be accessed from the Dev Room.
 
 Commands used in the in-game console are structured as follows:
 
@@ -16,7 +16,7 @@ Commands used in the in-game console are structured as follows:
 
 ### Running a Battle
 
-**Use the** `help` **command for a list of enemy types.
+**Use the** `help` **command for a list of enemy types.**
 
 `help enemy`
 
