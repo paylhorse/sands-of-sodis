@@ -113,7 +113,8 @@ public class MenuController : MonoBehaviour
     void Update()
     {
         // If we're within the cooldown period, we don't check for any input.
-        if (Time.time < nextInputTime) return;
+        if (Time.time < nextInputTime)
+            return;
 
         float verticalInput = Input.GetAxis("Vertical");
 
@@ -178,10 +179,10 @@ public class MenuController : MonoBehaviour
         }
     }
 
-
     private void MoveCursor(int direction)
     {
-        if (Time.time < nextInputTime) return;
+        if (Time.time < nextInputTime)
+            return;
         nextInputTime = Time.time + inputCooldown;
 
         currentIndex += direction;
@@ -209,10 +210,17 @@ public class MenuController : MonoBehaviour
 
     private void FloatHandCursor()
     {
-        float x = handCursor.position.x + Mathf.PingPong(Time.time * navigationSpeed, floatingAmplitude) - (floatingAmplitude / 2);
+        float x =
+            handCursor.position.x
+            + Mathf.PingPong(Time.time * navigationSpeed, floatingAmplitude)
+            - (floatingAmplitude / 2);
         float y = handCursor.position.y;
         Vector2 floatingPosition = new Vector2(x, y);
-        handCursor.position = Vector2.Lerp(handCursor.position, floatingPosition, Time.deltaTime * navigationSpeed);
+        handCursor.position = Vector2.Lerp(
+            handCursor.position,
+            floatingPosition,
+            Time.deltaTime * navigationSpeed
+        );
     }
 
     private void SelectButton(Button button)
@@ -231,8 +239,8 @@ public class MenuController : MonoBehaviour
 
     public void OnButtonHover(Button hoveredButton)
     {
-	int buttonIndex = menuButtons.IndexOf(hoveredButton);
-        if(buttonIndex != -1)
+        int buttonIndex = menuButtons.IndexOf(hoveredButton);
+        if (buttonIndex != -1)
         {
             currentIndex = buttonIndex;
             PositionHandCursor();
@@ -240,4 +248,3 @@ public class MenuController : MonoBehaviour
         }
     }
 }
-

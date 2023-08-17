@@ -59,9 +59,18 @@ public class EvasionController : MonoBehaviour
         for (int i = 0; i < circleResolution; i++)
         {
             float angle = i * 2 * Mathf.PI / circleResolution;
-            Vector3 vertexPosition = player.transform.position + new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * evasionRadius;
+            Vector3 vertexPosition =
+                player.transform.position
+                + new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * evasionRadius;
             UnityEngine.AI.NavMeshHit hit;
-            if (UnityEngine.AI.NavMesh.SamplePosition(vertexPosition, out hit, evasionRadius, UnityEngine.AI.NavMesh.AllAreas))
+            if (
+                UnityEngine.AI.NavMesh.SamplePosition(
+                    vertexPosition,
+                    out hit,
+                    evasionRadius,
+                    UnityEngine.AI.NavMesh.AllAreas
+                )
+            )
             {
                 vertexPosition = hit.position + Vector3.up * yOffset;
                 // Debug.Log("NavMesh hit found: " + hit.position);
@@ -81,7 +90,6 @@ public class EvasionController : MonoBehaviour
                 triangles[i * 3 + 1] = 1;
                 triangles[i * 3 + 2] = i + 1;
             }
-
         }
 
         float avgY = sumY / circleResolution;
@@ -99,14 +107,27 @@ public class EvasionController : MonoBehaviour
         for (int i = 0; i < boundaryColliderCount; i++)
         {
             float angle = i * 2 * Mathf.PI / boundaryColliderCount;
-            Vector3 boundaryPosition = player.transform.position + new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * evasionRadius;
+            Vector3 boundaryPosition =
+                player.transform.position
+                + new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * evasionRadius;
             UnityEngine.AI.NavMeshHit hit;
-            if (UnityEngine.AI.NavMesh.SamplePosition(boundaryPosition, out hit, evasionRadius, UnityEngine.AI.NavMesh.AllAreas))
+            if (
+                UnityEngine.AI.NavMesh.SamplePosition(
+                    boundaryPosition,
+                    out hit,
+                    evasionRadius,
+                    UnityEngine.AI.NavMesh.AllAreas
+                )
+            )
             {
                 boundaryPosition = hit.position;
             }
 
-            GameObject boundaryCollider = Instantiate(evasionBoundaryPrefab, boundaryPosition, Quaternion.identity);
+            GameObject boundaryCollider = Instantiate(
+                evasionBoundaryPrefab,
+                boundaryPosition,
+                Quaternion.identity
+            );
             boundaryCollider.transform.SetParent(transform);
             boundaryCollider.transform.LookAt(player.transform);
             evasionBoundaryColliders.Add(boundaryCollider);
@@ -121,6 +142,4 @@ public class EvasionController : MonoBehaviour
         }
         evasionBoundaryColliders.Clear();
     }
-
-
 }

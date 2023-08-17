@@ -19,7 +19,11 @@ public class SodisCam : MonoBehaviour
             return;
 
         // Set initial position of the camera
-        transform.position = new Vector3(target.position.x, transform.position.y, target.position.z - distanceToTarget);
+        transform.position = new Vector3(
+            target.position.x,
+            transform.position.y,
+            target.position.z - distanceToTarget
+        );
     }
 
     private void LateUpdate()
@@ -28,9 +32,18 @@ public class SodisCam : MonoBehaviour
             return;
 
         // Calculate the camera's target position on the x-z plane
-        Vector3 targetPosition = new Vector3(target.position.x, transform.position.y, target.position.z - distanceToTarget);
+        Vector3 targetPosition = new Vector3(
+            target.position.x,
+            transform.position.y,
+            target.position.z - distanceToTarget
+        );
 
         // Smoothly move the camera to the target position
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _followVelocity, smoothTime);
+        transform.position = Vector3.SmoothDamp(
+            transform.position,
+            targetPosition,
+            ref _followVelocity,
+            smoothTime
+        );
     }
 }

@@ -34,8 +34,7 @@ public class BUnit : MonoBehaviour
     public float actGauge;
 
     [Header("Initial Stats")]
-
-    public int STR;    
+    public int STR;
     public int RES;
     public int AGI;
     public int DEX;
@@ -64,20 +63,26 @@ public class BUnit : MonoBehaviour
     private static readonly int Speed = Animator.StringToHash("Speed");
 
     // Weapon Logic
-    [SerializeField] private SwordDamage swordDamage;
-    [SerializeField] private GameObject swordTrail;
+    [SerializeField]
+    private SwordDamage swordDamage;
+
+    [SerializeField]
+    private GameObject swordTrail;
 
     [Header("Combatant Canvas")]
-    [SerializeField] private Transform combatantCanvas;
+    [SerializeField]
+    private Transform combatantCanvas;
 
-    [SerializeField] private TextMeshProUGUI damageTextPrefab;
-    [SerializeField] private TextMeshProUGUI missTextPrefab;
+    [SerializeField]
+    private TextMeshProUGUI damageTextPrefab;
+
+    [SerializeField]
+    private TextMeshProUGUI missTextPrefab;
 
     public GameObject actionTextHolder;
     public TextMeshProUGUI actionText;
 
     [Header("Hidden Stats")]
-
     // Battleboy
     public GameObject BattleboyPrefab;
     public GameObject BattleboyInstance;
@@ -101,13 +106,16 @@ public class BUnit : MonoBehaviour
     private static readonly int IsCasting = Animator.StringToHash("IsCasting");
 
     // Comboing State
-    [SerializeField] private float attackRange = 1.0f;
+    [SerializeField]
+    private float attackRange = 1.0f;
     private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
 
     // Health Bar and Damage Numbers
     [Header("Health Bar and Battleboy")]
     public VitBar healthBar; // Reference to the HealthBar script
-    [SerializeField] private ParticleSystem bloodParticleEffect;
+
+    [SerializeField]
+    private ParticleSystem bloodParticleEffect;
 
     public Transform BattleboyHolder;
 
@@ -123,16 +131,21 @@ public class BUnit : MonoBehaviour
     protected virtual void Awake()
     {
         // Instantiate the Battleboy prefab and store it
-        BattleboyInstance = Instantiate(BattleboyPrefab, Vector2.zero, Quaternion.identity, BattleboyHolder);
+        BattleboyInstance = Instantiate(
+            BattleboyPrefab,
+            Vector2.zero,
+            Quaternion.identity,
+            BattleboyHolder
+        );
     }
 
-    // The 
+    // The
 
     protected virtual void Start()
-    {	
-	// Create the BUnit in Lua
-	CreateUnitInLua(name, STR, RES, AGI, DEX, VAS);
-	
+    {
+        // Create the BUnit in Lua
+        CreateUnitInLua(name, STR, RES, AGI, DEX, VAS);
+
         currentState = CharacterStateMachine.WAITING;
         richAI = GetComponent<RichAI>();
 
@@ -144,17 +157,19 @@ public class BUnit : MonoBehaviour
         // Update the health bar for the first time
         if (healthBar != null)
         {
-	    int currentVIT = (int)luaUnitReference.Table.Get("VIT").Number;
-	    int maxVIT = (int)luaUnitReference.Table.Get("maxVIT").Number;
+            int currentVIT = (int)luaUnitReference.Table.Get("VIT").Number;
+            int maxVIT = (int)luaUnitReference.Table.Get("maxVIT").Number;
             healthBar.UpdateVitBar(currentVIT, maxVIT);
         }
     }
 
     public DynValue CreateUnitInLua(string name, int STR, int RES, int AGI, int DEX, int VAS)
     {
-	// The logic for creating a unit in Lua
-    	luaUnitReference = luaBackbone.luaData.DoString($"return BUnit.new('{name}', {STR}, {RES}, {AGI}, {DEX}, {VAS})");
-    	return luaUnitReference;
+        // The logic for creating a unit in Lua
+        luaUnitReference = luaBackbone.luaData.DoString(
+            $"return BUnit.new('{name}', {STR}, {RES}, {AGI}, {DEX}, {VAS})"
+        );
+        return luaUnitReference;
     }
 
     // ---------- STATE MACHINE ----------
@@ -192,17 +207,17 @@ public class BUnit : MonoBehaviour
     // ---------- GETTERS ------------------------
     public int GetCurrentVIT()
     {
-	    return (int)luaUnitReference.Table.Get("VIT").Number;
+        return (int)luaUnitReference.Table.Get("VIT").Number;
     }
 
     public int GetAGI()
     {
-	    return (int)luaUnitReference.Table.Get("AGI").Number;
+        return (int)luaUnitReference.Table.Get("AGI").Number;
     }
 
     public int GetACT()
     {
-	    return (int)luaUnitReference.Table.Get("ACT").Number;
+        return (int)luaUnitReference.Table.Get("ACT").Number;
     }
 
     // ---------- IP AND ACT MANAGEMENT ----------
@@ -215,7 +230,7 @@ public class BUnit : MonoBehaviour
     public void GainIP(float amount)
     {
         ipGauge += amount;
-        if (ipGauge > 100) 
+        if (ipGauge > 100)
         {
             ipGauge = 100;
         }
@@ -235,15 +250,19 @@ public class BUnit : MonoBehaviour
 
     public void TakeDamage(int damage, Transform source)
     {
-	// Push damage to Lua 
-	luaBackbone.luaData.Call(luaUnitReference.Table.Get("takeDamage"), luaUnitReference, damage);	
-	// Pull back for checks
-	int currentVIT = (int)luaUnitReference.Table.Get("VIT").Number;
-	int maxVIT = (int)luaUnitReference.Table.Get("maxVIT").Number;
+        // Push damage to Lua
+        luaBackbone.luaData.Call(
+            luaUnitReference.Table.Get("takeDamage"),
+            luaUnitReference,
+            damage
+        );
+        // Pull back for checks
+        int currentVIT = (int)luaUnitReference.Table.Get("VIT").Number;
+        int maxVIT = (int)luaUnitReference.Table.Get("maxVIT").Number;
         // Update the health bar every time the character takes damage
         healthBar.UpdateVitBar(currentVIT, maxVIT);
 
-	// Death check
+        // Death check
         if (currentVIT <= 0)
         {
             Die();
@@ -280,7 +299,11 @@ public class BUnit : MonoBehaviour
         float yOffset = 0.1f; // Set the Y offset as needed
 
         // Generate a random offset
-        Vector3 randomOffset = new Vector3(Random.Range(-radius, radius), 0, Random.Range(-radius, radius));
+        Vector3 randomOffset = new Vector3(
+            Random.Range(-radius, radius),
+            0,
+            Random.Range(-radius, radius)
+        );
 
         // Add the random offset to the position
         position += randomOffset;
@@ -322,7 +345,10 @@ public class BUnit : MonoBehaviour
         damageText.text = "-" + damageAmount.ToString();
 
         // Set the position of the damage text (this assumes that the canvas has a RectTransform)
-        damageText.GetComponent<RectTransform>().anchoredPosition += new Vector2(randomOffset.x, randomOffset.y);
+        damageText.GetComponent<RectTransform>().anchoredPosition += new Vector2(
+            randomOffset.x,
+            randomOffset.y
+        );
 
         // Start the coroutine to destroy the damage text after 1 second
         StartCoroutine(DestroyDamageText(damageText.gameObject, 1f));
@@ -341,7 +367,10 @@ public class BUnit : MonoBehaviour
         TextMeshProUGUI missText = Instantiate(missTextPrefab, combatantCanvas);
 
         // Set the position of the damage text (this assumes that the canvas has a RectTransform)
-        missText.GetComponent<RectTransform>().anchoredPosition += new Vector2(randomOffset.x, randomOffset.y);
+        missText.GetComponent<RectTransform>().anchoredPosition += new Vector2(
+            randomOffset.x,
+            randomOffset.y
+        );
 
         StartCoroutine(DestroyDamageText(missText.gameObject, 1f));
     }
@@ -358,11 +387,15 @@ public class BUnit : MonoBehaviour
     private void PlayBloodEffect()
     {
         StartCoroutine(ActivateBloodEffect());
-    }   
+    }
 
     public void Heal(int healAmount)
     {
-	luaBackbone.luaData.Call(luaUnitReference.Table.Get("gainVIT"), luaUnitReference, healAmount);
+        luaBackbone.luaData.Call(
+            luaUnitReference.Table.Get("gainVIT"),
+            luaUnitReference,
+            healAmount
+        );
     }
 
     // ---------- AGENT MANAGEMENT ----------
@@ -392,12 +425,18 @@ public class BUnit : MonoBehaviour
         if (selectedEnemy != null)
         {
             Vector3 direction = (selectedEnemy.position - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            Quaternion lookRotation = Quaternion.LookRotation(
+                new Vector3(direction.x, 0, direction.z)
+            );
 
             float timeElapsed = 0;
             while (timeElapsed < rotationSpeed)
             {
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, timeElapsed / rotationSpeed);
+                transform.rotation = Quaternion.Slerp(
+                    transform.rotation,
+                    lookRotation,
+                    timeElapsed / rotationSpeed
+                );
                 timeElapsed += Time.deltaTime;
                 yield return null;
             }
@@ -419,6 +458,7 @@ public class BUnit : MonoBehaviour
             return 20.0f;
         }
     }
+
     // COMBO
 
     public void StartCombo()
@@ -440,14 +480,14 @@ public class BUnit : MonoBehaviour
                 swordTrail.SetActive(true);
                 currentState = CharacterStateMachine.COMBOING;
                 richAI.isStopped = true;
-                
+
                 break; // If within range, break the loop
             }
             else
             {
                 MoveToSelectedEnemy();
             }
-            
+
             yield return new WaitForSeconds(0.2f); // Adjust the delay as needed
         }
     }
@@ -491,18 +531,27 @@ public class BUnit : MonoBehaviour
         }
     }
 
-
     // Combo Knockback
 
-    private void ApplyKnockback(Transform source, RichAI targetAI, float knockbackForce, float knockbackTime)
+    private void ApplyKnockback(
+        Transform source,
+        RichAI targetAI,
+        float knockbackForce,
+        float knockbackTime
+    )
     {
         StartCoroutine(KnockbackCoroutine(source, targetAI, knockbackForce, knockbackTime));
     }
 
-    private IEnumerator KnockbackCoroutine(Transform source, RichAI targetAI, float knockbackForce, float knockbackTime)
+    private IEnumerator KnockbackCoroutine(
+        Transform source,
+        RichAI targetAI,
+        float knockbackForce,
+        float knockbackTime
+    )
     {
         float timer = 0;
-        
+
         Vector3 direction = (transform.position - source.position).normalized;
 
         Debug.Log("!RichAI Disabled!");
@@ -514,7 +563,7 @@ public class BUnit : MonoBehaviour
             timer += Time.deltaTime;
             yield return null; // wait for next frame
         }
-        
+
         Debug.Log("!RichAI Enabled!");
         targetAI.enabled = true; // Re-enable pathfinding after knockback
     }
@@ -528,9 +577,4 @@ public class BUnit : MonoBehaviour
         actionText.text = "Evade";
         richAI.destination = Ghost;
     }
-
 }
-
-
-
-

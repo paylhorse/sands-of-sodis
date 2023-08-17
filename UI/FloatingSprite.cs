@@ -17,7 +17,15 @@ public class FloatingSprite : MonoBehaviour
     private void Update()
     {
         float yOffset = Mathf.Sin(Time.time * floatSpeed) * floatAmplitude;
-        Vector3 newPosition = new Vector3(initialPosition.x, initialPosition.y + yOffset, initialPosition.z);
-        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * floatSpeed);
+        Vector3 newPosition = new Vector3(
+            initialPosition.x,
+            initialPosition.y + yOffset,
+            initialPosition.z
+        );
+        transform.position = Vector3.Lerp(
+            transform.position,
+            newPosition,
+            Time.deltaTime * floatSpeed
+        );
     }
 }

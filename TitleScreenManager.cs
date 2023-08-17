@@ -5,26 +5,45 @@ using UnityEngine.UI;
 public class TitleScreenManager : MonoBehaviour
 {
     [Header("Splash Screens")]
-    public Image SplashScreen1, SplashScreen2;
-    public GameObject TitleMenu, SplashScreenMask, BGM, BGS, ClockBGS, CardOrbitHolder;
-    public GameObject TrickScreen, ToriaPre, RitualMass, RitualGarden, OrbitDealer, RitualMass2, ToriaPost;
+    public Image SplashScreen1,
+        SplashScreen2;
+    public GameObject TitleMenu,
+        SplashScreenMask,
+        BGM,
+        BGS,
+        ClockBGS,
+        CardOrbitHolder;
+    public GameObject TrickScreen,
+        ToriaPre,
+        RitualMass,
+        RitualGarden,
+        OrbitDealer,
+        RitualMass2,
+        ToriaPost;
 
     [Header("Fade Settings")]
     [Tooltip("Time taken for the splash screen to fully appear.")]
     public float fadeInDuration = 1f;
+
     [Tooltip("Time taken for the splash screen to fully disappear.")]
     public float fadeOutDuration = 1f;
+
     [Tooltip("How long to wait on each splash screen before starting the fade out.")]
     public float displayDuration = 2f;
 
     public float fadeSpeed = 1.0f;
     public float waitTimeBetweenSplash = 1.0f;
-    public float shortFlickerDuration = 0.2f;  // You can adjust this for ToriaPre & ToriaPost flickering
-    
+    public float shortFlickerDuration = 0.2f; // You can adjust this for ToriaPre & ToriaPost flickering
+
     private void Start()
     {
         StartCoroutine(FadeInAndOutSplashScreen(SplashScreen1));
-        StartCoroutine(FadeInAndOutSplashScreen(SplashScreen2, fadeInDuration + displayDuration + fadeOutDuration));
+        StartCoroutine(
+            FadeInAndOutSplashScreen(
+                SplashScreen2,
+                fadeInDuration + displayDuration + fadeOutDuration
+            )
+        );
     }
 
     private IEnumerator FadeInAndOutSplashScreen(Image splashImage, float delay = 0f)
@@ -54,7 +73,7 @@ public class TitleScreenManager : MonoBehaviour
         }
 
         // Check if it's the last splash screen to continue with the other instructions.
-        if(splashImage == SplashScreen2)
+        if (splashImage == SplashScreen2)
         {
             ContinueWithOtherTasks();
         }
@@ -62,8 +81,8 @@ public class TitleScreenManager : MonoBehaviour
 
     private void ContinueWithOtherTasks()
     {
-        TitleMenu.SetActive(true);  // Activate Title Menu.
-        
+        TitleMenu.SetActive(true); // Activate Title Menu.
+
         // Assuming SplashScreenMask has an Image component, we fade it out.
         StartCoroutine(FadeOutMask());
 
@@ -166,7 +185,7 @@ public class TitleScreenManager : MonoBehaviour
 
     private IEnumerator FirstTime()
     {
-	// Activate Resolution Selector...
-	yield return null;
+        // Activate Resolution Selector...
+        yield return null;
     }
 }

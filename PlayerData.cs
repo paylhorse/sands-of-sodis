@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerData : MonoBehaviour
 {
     [Header("Vitality")]
-    [SerializeField] private int maxVitality;
+    [SerializeField]
+    private int maxVitality;
     private int currentVitality;
 
     public int CurrentVitality
@@ -17,7 +18,8 @@ public class PlayerData : MonoBehaviour
     public VitBar healthBar;
 
     [Header("Determination")]
-    [SerializeField] private int maxDet;
+    [SerializeField]
+    private int maxDet;
     private int currentDet;
 
     public int CurrentDet
@@ -29,7 +31,8 @@ public class PlayerData : MonoBehaviour
     public VitBar detBar;
 
     [Header("Fey")]
-    [SerializeField] private int maxFey;
+    [SerializeField]
+    private int maxFey;
     private int currentFey;
 
     public int CurrentFey
@@ -58,5 +61,4 @@ public class PlayerData : MonoBehaviour
         detBar.UpdateVitBar(currentDet, maxDet);
         feyBar.UpdateVitBar(currentFey, maxFey);
     }
-
 }

@@ -19,7 +19,7 @@ public class TilemapTo3DCollider : MonoBehaviour
                 if (tile != null)
                 {
                     // Vector3 pos = new Vector3(x, 0, y) + bounds.min;
-                    Vector3 pos = new Vector3(x , 0, y );
+                    Vector3 pos = new Vector3(x, 0, y);
                     Instantiate(colliderPrefab, pos, Quaternion.identity, transform);
                 }
             }

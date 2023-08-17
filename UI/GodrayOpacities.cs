@@ -6,12 +6,20 @@ using UnityEngine.UI;
 
 public class GodrayOpacity : MonoBehaviour
 {
-    [SerializeField] private Image godrayImage1;
-    [SerializeField] private Image godrayImage2;
+    [SerializeField]
+    private Image godrayImage1;
 
-    [SerializeField] private float opacitySpeed = 1.0f;
-    [SerializeField] private float minOpacity = 0.2f;
-    [SerializeField] private float maxOpacity = 1.0f;
+    [SerializeField]
+    private Image godrayImage2;
+
+    [SerializeField]
+    private float opacitySpeed = 1.0f;
+
+    [SerializeField]
+    private float minOpacity = 0.2f;
+
+    [SerializeField]
+    private float maxOpacity = 1.0f;
 
     private float currentLerpTime1 = 0.0f;
     private float currentLerpTime2 = 0.0f;

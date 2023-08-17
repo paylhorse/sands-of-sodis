@@ -12,7 +12,7 @@ I've chosen to make public the robust Debug Console being used internally for ba
 
 Commands used in the in-game console are structured as follows:
 
-**command** *argument1* *argument2* *argument3*...
+**command** _argument1_ _argument2_ _argument3_...
 
 ### Running a Battle
 
@@ -40,7 +40,6 @@ This should display the enemy you just created.
 `check chosenEnemyName AGI`
 `check chosenEnemyName gearset`
 
-
 **Use the** `modify` **command to update an instanced enemy's level, stats or equipped gear.**
 
 `modify chosenEnemyName level 10`
@@ -54,7 +53,7 @@ The enemy's now registered in the kernel. We bring it into the field by **creati
 
 `create battle [mapName, chosenBattleName, normal, chosenEnemyName1, chosenEnemyName2...]`
 
-The first parameter dictates starting positions: *normal*, *advantage* or *disadvantage*.
+The first parameter dictates starting positions: _normal_, _advantage_ or _disadvantage_.
 
 `list battle`
 
@@ -76,4 +75,3 @@ This is useful if you'd like to spawn multiple battles, to simulate chain encoun
 **Use** `simulate` **to run a comparision of stats and simulate a battle, outputting it's result.**
 
 `simulate battle battleName`
-

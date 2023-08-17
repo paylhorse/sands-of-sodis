@@ -31,7 +31,8 @@ public class SphereMenu : MonoBehaviour
     private int gridY = 0;
 
     // Label
-    [SerializeField] private string[,] menuTexts = new string[4, 2]
+    [SerializeField]
+    private string[,] menuTexts = new string[4, 2]
     {
         { "INHERENT SK.", "ITEMS." },
         { "COMBO.", "EQUIPMENT SK." },
@@ -56,7 +57,6 @@ public class SphereMenu : MonoBehaviour
     public GameObject sphereMenuHolder;
 
     [Header("Party Member Info")]
-
     public BUnit character;
 
     // Evasion
@@ -64,11 +64,15 @@ public class SphereMenu : MonoBehaviour
     public EvasionController evasionController;
 
     // Floating Label
-    [SerializeField] private float floatAmplitude = 5f;
-    [SerializeField] private float floatFrequency = 1f;
+    [SerializeField]
+    private float floatAmplitude = 5f;
+
+    [SerializeField]
+    private float floatFrequency = 1f;
     private Vector3 initialTextPosition;
 
-    [SerializeField] private TextMeshProUGUI menuText;
+    [SerializeField]
+    private TextMeshProUGUI menuText;
 
     // Commands
     public delegate void SphereCommand();
@@ -84,25 +88,32 @@ public class SphereMenu : MonoBehaviour
     // Preset Grid Menu
     private Vector3[,] childSphereRotations = new Vector3[4, 2]
     {
-        {new Vector3(0, -118.346f, 0), new Vector3(0, -118.346f, 0)},
-        {new Vector3(0, -26.846f, 0), new Vector3(0, -26.846f, 0)},
-        {new Vector3(0, 64.654f, 0), new Vector3(0, 64.654f, 0)},
-        {new Vector3(0, 156.154f, 0), new Vector3(0, 156.154f, 0)}
+        { new Vector3(0, -118.346f, 0), new Vector3(0, -118.346f, 0) },
+        { new Vector3(0, -26.846f, 0), new Vector3(0, -26.846f, 0) },
+        { new Vector3(0, 64.654f, 0), new Vector3(0, 64.654f, 0) },
+        { new Vector3(0, 156.154f, 0), new Vector3(0, 156.154f, 0) }
     };
 
     private Vector3[,] objectRotations = new Vector3[4, 2]
     {
-        {new Vector3(0, 0, 0), new Vector3(42.6f, 0, 0)},
-        {new Vector3(0, 0, 0), new Vector3(42.6f, 0, 0)},
-        {new Vector3(0, 0, 0), new Vector3(42.6f, 0, 0)},
-        {new Vector3(0, 0, 0), new Vector3(42.6f, 0, 0)}
+        { new Vector3(0, 0, 0), new Vector3(42.6f, 0, 0) },
+        { new Vector3(0, 0, 0), new Vector3(42.6f, 0, 0) },
+        { new Vector3(0, 0, 0), new Vector3(42.6f, 0, 0) },
+        { new Vector3(0, 0, 0), new Vector3(42.6f, 0, 0) }
     };
 
     // Skill Menus
-    [SerializeField] private GameObject inherentSkillMenu;
-    [SerializeField] private GameObject spellBookMenu;
-    [SerializeField] private GameObject equipSkillMenu;
-    [SerializeField] private GameObject itemMenu;
+    [SerializeField]
+    private GameObject inherentSkillMenu;
+
+    [SerializeField]
+    private GameObject spellBookMenu;
+
+    [SerializeField]
+    private GameObject equipSkillMenu;
+
+    [SerializeField]
+    private GameObject itemMenu;
 
     // Audio
     public SoundManager UISoundManager;
@@ -143,7 +154,6 @@ public class SphereMenu : MonoBehaviour
         itemMenu.SetActive(false);
         SetRotationEnabled(true);
     }
-
 
     public void AssignCommandToGridBox(int gridBoxIndex, SphereCommand command)
     {
@@ -214,7 +224,6 @@ public class SphereMenu : MonoBehaviour
         }
     }
 
-
     public void Activate()
     {
         sphereMenuHolder.SetActive(true);
@@ -222,7 +231,6 @@ public class SphereMenu : MonoBehaviour
         SetRotationEnabled(true);
 
         battleCamera.MoveToSelectCam();
-
     }
 
     public void Deactivate()
@@ -287,15 +295,17 @@ public class SphereMenu : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp(elapsedTime / rotationDuration, 0, 1);
-            targetObject.transform.localRotation = Quaternion.Slerp(startLocalRotation, targetLocalRotation, t);
+            targetObject.transform.localRotation = Quaternion.Slerp(
+                startLocalRotation,
+                targetLocalRotation,
+                t
+            );
             yield return null;
         }
 
         targetObject.transform.localRotation = targetLocalRotation;
         isRotating = false;
     }
-
-
 
     public void ResetSphereRotation()
     {
@@ -318,7 +328,11 @@ public class SphereMenu : MonoBehaviour
     private void FloatText()
     {
         float newY = initialTextPosition.y + Mathf.Sin(Time.time * floatFrequency) * floatAmplitude;
-        menuText.transform.localPosition = new Vector3(initialTextPosition.x, newY, initialTextPosition.z);
+        menuText.transform.localPosition = new Vector3(
+            initialTextPosition.x,
+            newY,
+            initialTextPosition.z
+        );
     }
 
     private void ExecuteCommandForCurrentGridBox()
@@ -383,12 +397,3 @@ public class SphereMenu : MonoBehaviour
         }
     }
 }
-
-
-
-
-
-
-
-
-

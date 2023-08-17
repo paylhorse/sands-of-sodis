@@ -44,8 +44,7 @@ public class PatrollingEnemy : MonoBehaviour
                 do
                 {
                     nextWaypointIndex = Random.Range(0, waypoints.Length);
-                }
-                while (nextWaypointIndex == currentWaypointIndex);
+                } while (nextWaypointIndex == currentWaypointIndex);
 
                 // Update the current waypoint index
                 currentWaypointIndex = nextWaypointIndex;

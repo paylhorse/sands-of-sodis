@@ -7,7 +7,7 @@ public class ScreenDialogue : MonoBehaviour
 {
     public GameObject content; // Reference to the Content GameObject inside the Scroll View
     public ScrollRect scrollRect; // Reference to the ScrollRect component of the Scroll View
-    
+
     public GameObject dialogueLightPrefab; // Reference to the DialogueLight prefab
     public GameObject dialogueDarkPrefab; // Reference to the DialogueDark prefab
     public GameObject nameplatePrefab; // Reference to the Nameplate prefab
@@ -56,7 +56,11 @@ public class ScreenDialogue : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-            scrollRect.verticalNormalizedPosition = Mathf.Lerp(startingNormalizedPosition, targetNormalizedPosition, elapsedTime / duration);
+            scrollRect.verticalNormalizedPosition = Mathf.Lerp(
+                startingNormalizedPosition,
+                targetNormalizedPosition,
+                elapsedTime / duration
+            );
             elapsedTime += Time.deltaTime;
             yield return null;
         }

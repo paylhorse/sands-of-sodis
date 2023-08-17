@@ -29,7 +29,10 @@ public class RadialMenuActivator : MonoBehaviour
 
     private void Update()
     {
-        bool isMouseOver = RectTransformUtility.RectangleContainsScreenPoint(rectTransform, Input.mousePosition);
+        bool isMouseOver = RectTransformUtility.RectangleContainsScreenPoint(
+            rectTransform,
+            Input.mousePosition
+        );
 
         if (isMouseOver)
         {
@@ -66,7 +69,10 @@ public class RadialMenuActivator : MonoBehaviour
 
     private Vector2 GetMouseDirectionFromCenter()
     {
-        Vector2 screenCenter = RectTransformUtility.WorldToScreenPoint(null, rectTransform.position);
+        Vector2 screenCenter = RectTransformUtility.WorldToScreenPoint(
+            null,
+            rectTransform.position
+        );
         Vector2 mousePosition = Input.mousePosition;
         return (mousePosition - screenCenter).normalized;
     }
@@ -117,7 +123,10 @@ public class RadialMenuActivator : MonoBehaviour
 
     private Vector2 GetMouseVectorFromCenter()
     {
-        Vector2 screenCenter = RectTransformUtility.WorldToScreenPoint(null, rectTransform.position);
+        Vector2 screenCenter = RectTransformUtility.WorldToScreenPoint(
+            null,
+            rectTransform.position
+        );
         Vector2 mousePosition = Input.mousePosition;
         return mousePosition - screenCenter;
     }

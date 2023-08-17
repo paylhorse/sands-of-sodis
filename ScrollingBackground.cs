@@ -3,8 +3,11 @@ using UnityEngine.UI;
 
 public class ScrollingBackground : MonoBehaviour
 {
-    [SerializeField] private float scrollSpeedX = 0.5f;
-    [SerializeField] private float scrollSpeedY = 0.5f;
+    [SerializeField]
+    private float scrollSpeedX = 0.5f;
+
+    [SerializeField]
+    private float scrollSpeedY = 0.5f;
 
     private Image backgroundImage;
 

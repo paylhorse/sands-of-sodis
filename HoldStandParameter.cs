@@ -33,5 +33,3 @@ public class HoldStandParameter : MonoBehaviour
         holdStandAction.Disable();
     }
 }
-
-

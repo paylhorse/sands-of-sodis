@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class WakeUpController : MonoBehaviour
 {
-    public Animator playerAnimator; 
+    public Animator playerAnimator;
     public GameObject controllableTrigger;
     private bool isWakingUp = false;
 
@@ -18,7 +18,10 @@ public class WakeUpController : MonoBehaviour
     private void Update()
     {
         // if player is still lying down and any movement key is pressed
-        if (playerAnimator.GetBool("IsLyingDown") && Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical"))
+        if (
+            playerAnimator.GetBool("IsLyingDown") && Input.GetButtonDown("Horizontal")
+            || Input.GetButtonDown("Vertical")
+        )
         {
             playerAnimator.SetBool("IsWakingUp", true);
             playerAnimator.SetBool("IsLyingDown", false);

@@ -46,7 +46,12 @@ public class CardSelectController : MonoBehaviour
 
     public Transform inspectPosition;
 
-    private enum CardState { Idle, Inspect }
+    private enum CardState
+    {
+        Idle,
+        Inspect
+    }
+
     private CardState cardState = CardState.Idle;
 
     private Vector3[] originalCardScales;
@@ -144,7 +149,6 @@ public class CardSelectController : MonoBehaviour
                 }
             }
         }
-        
     }
 
     void InspectCard()
@@ -171,7 +175,7 @@ public class CardSelectController : MonoBehaviour
     {
         cardState = CardState.Idle;
 
-        foreach (Transform child in cardTooltip.transform) 
+        foreach (Transform child in cardTooltip.transform)
         {
             GameObject.Destroy(child.gameObject);
         }
@@ -209,7 +213,11 @@ public class CardSelectController : MonoBehaviour
         {
             t += Time.deltaTime * cardLerpSpeed;
             card.transform.position = Vector3.Lerp(startPosition, originalCardPositions[index], t);
-            card.transform.rotation = Quaternion.Lerp(startRotation, originalCardRotations[index], t);
+            card.transform.rotation = Quaternion.Lerp(
+                startRotation,
+                originalCardRotations[index],
+                t
+            );
             card.transform.localScale = Vector3.Lerp(startScale, originalCardScales[index], t);
             yield return null;
         }
@@ -231,7 +239,11 @@ public class CardSelectController : MonoBehaviour
 
     void MoveLight()
     {
-        pointLight.transform.position = Vector3.Lerp(pointLight.transform.position, targetPosition, Time.deltaTime * lerpSpeed);
+        pointLight.transform.position = Vector3.Lerp(
+            pointLight.transform.position,
+            targetPosition,
+            Time.deltaTime * lerpSpeed
+        );
         if (Vector3.Distance(pointLight.transform.position, targetPosition) < 0.01f)
         {
             pointLight.transform.position = targetPosition;
@@ -267,7 +279,11 @@ public class CardSelectController : MonoBehaviour
                     targetPosition += new Vector3(0, cardRaiseHeight, -cardMoveBackward);
                 }
 
-                cards[i].transform.position = Vector3.Lerp(cards[i].transform.position, targetPosition, Time.deltaTime * cardLerpSpeed);
+                cards[i].transform.position = Vector3.Lerp(
+                    cards[i].transform.position,
+                    targetPosition,
+                    Time.deltaTime * cardLerpSpeed
+                );
 
                 if (i == currentIndex)
                 {
@@ -294,8 +310,6 @@ public class CardSelectController : MonoBehaviour
     {
         // Start the DrawAnimation coroutine
         StartCoroutine(DrawProcessCoroutine());
-
-        
     }
 
     private IEnumerator DrawProcessCoroutine()

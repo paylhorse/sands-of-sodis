@@ -18,7 +18,15 @@ public class MeshFloating : MonoBehaviour
     {
         floatTimer += Time.deltaTime * floatSpeed;
         float zOffset = Mathf.Sin(floatTimer) * floatRange;
-        Vector3 targetPosition = new Vector3(originalPosition.x, originalPosition.y, originalPosition.z + zOffset);
-        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition, Time.deltaTime * positionLerpSpeed);
+        Vector3 targetPosition = new Vector3(
+            originalPosition.x,
+            originalPosition.y,
+            originalPosition.z + zOffset
+        );
+        transform.localPosition = Vector3.Lerp(
+            transform.localPosition,
+            targetPosition,
+            Time.deltaTime * positionLerpSpeed
+        );
     }
 }

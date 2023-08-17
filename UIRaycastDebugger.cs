@@ -18,7 +18,9 @@ public class UIRaycastDebugger : MonoBehaviour
         // Check if GraphicRaycaster and EventSystem are available
         if (graphicRaycaster == null || eventSystem == null)
         {
-            Debug.LogError("UIRaycastDebugger requires a GraphicRaycaster and EventSystem component on the same GameObject.");
+            Debug.LogError(
+                "UIRaycastDebugger requires a GraphicRaycaster and EventSystem component on the same GameObject."
+            );
             return;
         }
     }

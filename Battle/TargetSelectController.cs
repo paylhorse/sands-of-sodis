@@ -10,7 +10,7 @@ public class TargetSelectController : MonoBehaviour
     private int currentEnemyIndex = 0;
 
     public SoundManager UISoundManager;
-    public LayerMask enemyLayer;  // Set this in the inspector to match your enemy's layer
+    public LayerMask enemyLayer; // Set this in the inspector to match your enemy's layer
 
     public CustomCursor customCursor;
 
@@ -57,13 +57,19 @@ public class TargetSelectController : MonoBehaviour
 
         // Instantiate a new cursor at the enemy's position
         Vector3 cursorPosition = battleManager.Enemies[enemyIndex].transform.position + Vector3.up; // Add Vector3.up to position it above the enemy
-        currentCursor = Instantiate(swordCursorPrefab, cursorPosition, swordCursorPrefab.transform.rotation);
+        currentCursor = Instantiate(
+            swordCursorPrefab,
+            cursorPosition,
+            swordCursorPrefab.transform.rotation
+        );
     }
 
     private void MoveCursor(int direction)
     {
         // Get the new enemy index, ensuring it wraps around the list correctly
-        currentEnemyIndex = (currentEnemyIndex + direction + battleManager.Enemies.Count) % battleManager.Enemies.Count;
+        currentEnemyIndex =
+            (currentEnemyIndex + direction + battleManager.Enemies.Count)
+            % battleManager.Enemies.Count;
 
         UISoundManager.PlaySound("Pon");
 
@@ -122,5 +128,4 @@ public class TargetSelectController : MonoBehaviour
             customCursor.SetCustomCursor(customCursor.defaultCursorTexture);
         }
     }
-
 }

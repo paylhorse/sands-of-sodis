@@ -21,7 +21,9 @@ public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         if (tooltipUI == null)
         {
-            Debug.LogError("Tooltip UI not found. Please ensure there's a GameObject with the 'TooltipPanel' tag and 'TooltipPanel' script in the scene.");
+            Debug.LogError(
+                "Tooltip UI not found. Please ensure there's a GameObject with the 'TooltipPanel' tag and 'TooltipPanel' script in the scene."
+            );
         }
     }
 

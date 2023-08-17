@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class FractionalRootMotion : MonoBehaviour
 {
-    [SerializeField] private float rootMotionMultiplier = 0.5f;
+    [SerializeField]
+    private float rootMotionMultiplier = 0.5f;
     private Animator animator;
 
     // Indicates whether to use root motion for movement
@@ -44,4 +45,3 @@ public class FractionalRootMotion : MonoBehaviour
         }
     }
 }
-

@@ -25,7 +25,7 @@ TOML.parse = function(toml, options)
 		nl = nl .. crlf
 	end
 	nl = nl .. "]"
-	
+
 	-- stores text data
 	local buffer = ""
 
@@ -52,7 +52,7 @@ TOML.parse = function(toml, options)
 
 	-- move forward until the next non-whitespace character
 	local function skipWhitespace()
-		while(char():match(ws)) do
+		while char():match(ws) do
 			step()
 		end
 	end
@@ -64,7 +64,9 @@ TOML.parse = function(toml, options)
 
 	-- divide a string into a table around a delimiter
 	local function split(str, delim)
-		if str == "" then return {} end
+		if str == "" then
+			return {}
+		end
 		local result = {}
 		local append = delim
 		if delim:match("%%") then
@@ -111,7 +113,7 @@ TOML.parse = function(toml, options)
 		-- skip the quotes
 		step(multiline and 3 or 1)
 
-		while(bounds()) do
+		while bounds() do
 			if multiline and char():match(nl) and str == "" then
 				-- skip line break line at the beginning of multiline string
 				step()
@@ -139,7 +141,7 @@ TOML.parse = function(toml, options)
 				if multiline and char(1):match(nl) then
 					-- skip until first non-whitespace character
 					step(1) -- go past the line break
-					while(bounds()) do
+					while bounds() do
 						if not char():match(ws) and not char():match(nl) then
 							break
 						end
@@ -159,8 +161,10 @@ TOML.parse = function(toml, options)
 					-- utf function from http://stackoverflow.com/a/26071044
 					-- converts \uXXX into actual unicode
 					local function utf(char)
-						local bytemarkers = {{0x7ff, 192}, {0xffff, 224}, {0x1fffff, 240}}
-						if char < 128 then return string.char(char) end
+						local bytemarkers = { { 0x7ff, 192 }, { 0xffff, 224 }, { 0x1fffff, 240 } }
+						if char < 128 then
+							return string.char(char)
+						end
 						local charbytes = {}
 						for bytes, vals in pairs(bytemarkers) do
 							if char <= vals[1] then
@@ -213,14 +217,14 @@ TOML.parse = function(toml, options)
 			end
 		end
 
-		return {value = str, type = "string"}
+		return { value = str, type = "string" }
 	end
 
 	local function parseNumber()
 		local num = ""
 		local exp
 		local date = false
-		while(bounds()) do
+		while bounds() do
 			if char():match("[%+%-%.eE_0-9]") then
 				if not exp then
 					if char():lower() == "e" then
@@ -235,12 +239,19 @@ TOML.parse = function(toml, options)
 				else
 					err("Invalid exponent")
 				end
-			elseif char():match(ws) or char() == "#" or char():match(nl) or char() == "," or char() == "]" or char() == "}" then
+			elseif
+				char():match(ws)
+				or char() == "#"
+				or char():match(nl)
+				or char() == ","
+				or char() == "]"
+				or char() == "}"
+			then
 				break
 			elseif char() == "T" or char() == "Z" then
 				-- parse the date (as a string, since lua has no date object)
 				date = true
-				while(bounds()) do
+				while bounds() do
 					if char() == "," or char() == "]" or char() == "#" or char():match(nl) or char():match(ws) then
 						break
 					end
@@ -254,11 +265,13 @@ TOML.parse = function(toml, options)
 		end
 
 		if date then
-			return {value = num, type = "date"}
+			return { value = num, type = "date" }
 		end
 
 		local float = false
-		if num:match("%.") then float = true end
+		if num:match("%.") then
+			float = true
+		end
 
 		exp = exp and tonumber(exp) or 0
 		num = tonumber(num)
@@ -268,16 +281,16 @@ TOML.parse = function(toml, options)
 				-- lua will automatically convert the result
 				-- of a power operation to a float, so we have
 				-- to convert it back to an int with math.floor
-				value = math.floor(num * 10^exp),
+				value = math.floor(num * 10 ^ exp),
 				type = "int",
 			}
 		end
 
-		return {value = num * 10^exp, type = "float"}
+		return { value = num * 10 ^ exp, type = "float" }
 	end
 
 	local parseArray, getValue
-	
+
 	function parseArray()
 		step() -- skip [
 		skipWhitespace()
@@ -285,7 +298,7 @@ TOML.parse = function(toml, options)
 		local arrayType
 		local array = {}
 
-		while(bounds()) do
+		while bounds() do
 			if char() == "]" then
 				break
 			elseif char():match(nl) then
@@ -293,13 +306,15 @@ TOML.parse = function(toml, options)
 				step()
 				skipWhitespace()
 			elseif char() == "#" then
-				while(bounds() and not char():match(nl)) do
+				while bounds() and not char():match(nl) do
 					step()
 				end
 			else
 				-- get the next object in the array
 				local v = getValue()
-				if not v then break end
+				if not v then
+					break
+				end
 
 				-- set the type if it hasn't been set before
 				if arrayType == nil then
@@ -310,7 +325,7 @@ TOML.parse = function(toml, options)
 
 				array = array or {}
 				table.insert(array, v.value)
-				
+
 				if char() == "," then
 					step()
 				end
@@ -319,7 +334,7 @@ TOML.parse = function(toml, options)
 		end
 		step()
 
-		return {value = array, type = "array"}
+		return { value = array, type = "array" }
 	end
 
 	local function parseInlineTable()
@@ -367,24 +382,24 @@ TOML.parse = function(toml, options)
 		end
 		step() -- skip closing brace
 
-		return {value = tbl, type = "array"}
+		return { value = tbl, type = "array" }
 	end
 
 	local function parseBoolean()
 		local v
 		if toml:sub(cursor, cursor + 3) == "true" then
 			step(4)
-			v = {value = true, type = "boolean"}
+			v = { value = true, type = "boolean" }
 		elseif toml:sub(cursor, cursor + 4) == "false" then
 			step(5)
-			v = {value = false, type = "boolean"}
+			v = { value = false, type = "boolean" }
 		else
 			err("Invalid primitive")
 		end
 
 		skipWhitespace()
 		if char() == "#" then
-			while(not char():match(nl)) do
+			while not char():match(nl) do
 				step()
 			end
 		end
@@ -411,13 +426,12 @@ TOML.parse = function(toml, options)
 
 	-- track whether the current key was quoted or not
 	local quotedKey = false
-	
-	-- parse the document!
-	while(cursor <= toml:len()) do
 
+	-- parse the document!
+	while cursor <= toml:len() do
 		-- skip comments and whitespace
 		if char() == "#" then
-			while(not char():match(nl)) do
+			while not char():match(nl) do
 				step()
 			end
 		end
@@ -429,7 +443,7 @@ TOML.parse = function(toml, options)
 		if char() == "=" then
 			step()
 			skipWhitespace()
-			
+
 			-- trim key name
 			buffer = trim(buffer)
 
@@ -457,7 +471,7 @@ TOML.parse = function(toml, options)
 			-- skip whitespace and comments
 			skipWhitespace()
 			if char() == "#" then
-				while(bounds() and not char():match(nl)) do
+				while bounds() and not char():match(nl) do
 					step()
 				end
 			end
@@ -516,7 +530,7 @@ TOML.parse = function(toml, options)
 				end
 			end
 
-			while(bounds()) do
+			while bounds() do
 				if char() == "]" then
 					if tableArray then
 						if char(1) ~= "]" then
@@ -545,7 +559,7 @@ TOML.parse = function(toml, options)
 
 			buffer = ""
 			quotedKey = false
-		elseif (char() == '"' or char() == "'") then
+		elseif char() == '"' or char() == "'" then
 			-- quoted key
 			buffer = parseString().value
 			quotedKey = true
@@ -592,7 +606,9 @@ TOML.encode = function(tbl)
 				local array, arrayTable = true, true
 				local first = {}
 				for kk, vv in pairs(v) do
-					if type(kk) ~= "number" then array = false end
+					if type(kk) ~= "number" then
+						array = false
+					end
 					if type(vv) ~= "table" then
 						v[kk] = nil
 						first[kk] = vv
@@ -635,11 +651,10 @@ TOML.encode = function(tbl)
 			end
 		end
 	end
-	
+
 	parse(tbl)
-	
+
 	return toml:sub(1, -2)
 end
 
 return TOML
-

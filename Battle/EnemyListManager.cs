@@ -7,7 +7,8 @@ using TMPro;
 
 public class EnemyListManager : MonoBehaviour
 {
-    [SerializeField] private GameObject enemyListItemPrefab;
+    [SerializeField]
+    private GameObject enemyListItemPrefab;
     private List<EnemyUnit> enemies;
 
     void Start()
@@ -37,4 +38,3 @@ public class EnemyListManager : MonoBehaviour
         }
     }
 }
-

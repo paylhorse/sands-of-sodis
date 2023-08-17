@@ -20,7 +20,7 @@ public class WearEquipment : MonoBehaviour
         // Set the position and rotation of the clothed character to match the nude character's
         clothedCharacter.transform.position = nudeCharacter.transform.position;
         clothedCharacter.transform.rotation = nudeCharacter.transform.rotation;
-        
+
         // Hide nude character and show clothed character
         nudeCharacter.SetActive(false);
         clothedCharacter.SetActive(true);

@@ -6,11 +6,20 @@ using UnityEngine.UI;
 
 public class BlinkingEyes : MonoBehaviour
 {
-    [SerializeField] private Image upperEyesImage;
-    [SerializeField] private float minBlinkInterval = 2f;
-    [SerializeField] private float maxBlinkInterval = 5f;
-    [SerializeField] private float blinkDuration = 0.1f;
-    [SerializeField] private float doubleBlinkDelay = 0.1f;
+    [SerializeField]
+    private Image upperEyesImage;
+
+    [SerializeField]
+    private float minBlinkInterval = 2f;
+
+    [SerializeField]
+    private float maxBlinkInterval = 5f;
+
+    [SerializeField]
+    private float blinkDuration = 0.1f;
+
+    [SerializeField]
+    private float doubleBlinkDelay = 0.1f;
 
     private void Start()
     {
@@ -44,5 +53,3 @@ public class BlinkingEyes : MonoBehaviour
         }
     }
 }
-
-

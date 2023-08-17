@@ -6,10 +6,10 @@ public class CardOrbit : MonoBehaviour
     public int numberOfCards = 5;
     public GameObject cardPrefab;
     public float orbitRadius = 5f;
-    public float cardDelay = 0.5f; 
-    public float moveSpeed = 2f; 
+    public float cardDelay = 0.5f;
+    public float moveSpeed = 2f;
     public float rotationSpeed = 30f;
-    public float localRotationSpeed = 60f;  // Local y-axis rotation speed for each card
+    public float localRotationSpeed = 60f; // Local y-axis rotation speed for each card
 
     private GameObject[] cards;
 
@@ -55,7 +55,11 @@ public class CardOrbit : MonoBehaviour
         while (true)
         {
             orbitAngle += rotationSpeed * Time.deltaTime * Mathf.Deg2Rad;
-            Vector3 orbitPos = new Vector3(orbitRadius * Mathf.Sin(orbitAngle), 0, orbitRadius * Mathf.Cos(orbitAngle));
+            Vector3 orbitPos = new Vector3(
+                orbitRadius * Mathf.Sin(orbitAngle),
+                0,
+                orbitRadius * Mathf.Cos(orbitAngle)
+            );
             card.transform.position = orbitPos;
             card.transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
             card.transform.Rotate(Vector3.up * localRotationSpeed * Time.deltaTime, Space.Self);
@@ -71,4 +75,3 @@ public class CardOrbit : MonoBehaviour
         return point;
     }
 }
-

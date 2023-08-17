@@ -10,7 +10,9 @@ public class SceneTransition : MonoBehaviour
     public List<Sprite> closeSceneSprites;
     public List<Sprite> openSceneSprites;
     public float frameDuration = 0.1f;
-    [SerializeField] private string combatSceneName = "COMBAT_TEST";
+
+    [SerializeField]
+    private string combatSceneName = "COMBAT_TEST";
 
     private Camera mainCamera;
 

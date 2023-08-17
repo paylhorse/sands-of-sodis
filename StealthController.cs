@@ -9,14 +9,14 @@ public class StealthController : MonoBehaviour
     private GameObject crouchManager;
 
     [SerializeField]
-    private float rotationSpeed = 5.0f;  // The speed of rotation
+    private float rotationSpeed = 5.0f; // The speed of rotation
 
     public bool isStealthOn;
     public bool isHiding;
     public bool isTouchingWall; // New variable
 
     private Quaternion hidingPlaceRotation; // The rotation of the hiding place
-    private Collider currentHidingPlace;    // The current hiding place collider
+    private Collider currentHidingPlace; // The current hiding place collider
 
     private AvatarIKGoal activeHand = AvatarIKGoal.RightHand; // Which hand to raise
 
@@ -45,7 +45,7 @@ public class StealthController : MonoBehaviour
             playerAnimator.SetBool("Crouch", false);
             crouchManager.SetActive(false);
             isStealthOn = false;
-            isHiding = false;  // Exiting stealth mode will also cancel hiding state
+            isHiding = false; // Exiting stealth mode will also cancel hiding state
         }
 
         // If in hiding state, continuously update player's rotation to match hiding place's
@@ -55,17 +55,31 @@ public class StealthController : MonoBehaviour
             float moveDirection = Input.GetAxis("Horizontal");
             if (Mathf.Abs(moveDirection) > 0.1f)
             {
-                hidingPlaceRotation = Quaternion.LookRotation(currentHidingPlace.transform.right * Mathf.Sign(moveDirection), Vector3.up);
+                hidingPlaceRotation = Quaternion.LookRotation(
+                    currentHidingPlace.transform.right * Mathf.Sign(moveDirection),
+                    Vector3.up
+                );
             }
 
-            transform.rotation = Quaternion.Lerp(transform.rotation, hidingPlaceRotation, Time.deltaTime * rotationSpeed);
+            transform.rotation = Quaternion.Lerp(
+                transform.rotation,
+                hidingPlaceRotation,
+                Time.deltaTime * rotationSpeed
+            );
         }
 
         // If touching wall and not in hiding, face perpendicular to wall
         if (isTouchingWall && !isHiding)
         {
-            hidingPlaceRotation = Quaternion.LookRotation(-currentHidingPlace.transform.forward, Vector3.up);
-            transform.rotation = Quaternion.Lerp(transform.rotation, hidingPlaceRotation, Time.deltaTime * 20.0f); // increase the speed here
+            hidingPlaceRotation = Quaternion.LookRotation(
+                -currentHidingPlace.transform.forward,
+                Vector3.up
+            );
+            transform.rotation = Quaternion.Lerp(
+                transform.rotation,
+                hidingPlaceRotation,
+                Time.deltaTime * 20.0f
+            ); // increase the speed here
         }
     }
 
@@ -83,10 +97,13 @@ public class StealthController : MonoBehaviour
             {
                 EnterHidingState();
             }
-            else if(!isHiding)
+            else if (!isHiding)
             {
                 // Calculate hiding place rotation for standing state
-                hidingPlaceRotation = Quaternion.LookRotation(-currentHidingPlace.transform.forward, Vector3.up);
+                hidingPlaceRotation = Quaternion.LookRotation(
+                    -currentHidingPlace.transform.forward,
+                    Vector3.up
+                );
                 transform.rotation = hidingPlaceRotation;
             }
         }
@@ -110,12 +127,18 @@ public class StealthController : MonoBehaviour
         if (Vector3.Dot(transform.forward, currentHidingPlace.transform.right) > 0)
         {
             // Player is closer to facing right, so align to right
-            hidingPlaceRotation = Quaternion.LookRotation(currentHidingPlace.transform.right, Vector3.up);
+            hidingPlaceRotation = Quaternion.LookRotation(
+                currentHidingPlace.transform.right,
+                Vector3.up
+            );
         }
         else
         {
             // Player is closer to facing left, so align to left
-            hidingPlaceRotation = Quaternion.LookRotation(-currentHidingPlace.transform.right, Vector3.up);
+            hidingPlaceRotation = Quaternion.LookRotation(
+                -currentHidingPlace.transform.right,
+                Vector3.up
+            );
         }
 
         Debug.Log("Entering Hiding State...");
@@ -130,7 +153,10 @@ public class StealthController : MonoBehaviour
     {
         if (isHiding)
         {
-            if (hidingPlaceRotation == Quaternion.LookRotation(currentHidingPlace.transform.right, Vector3.up))
+            if (
+                hidingPlaceRotation
+                == Quaternion.LookRotation(currentHidingPlace.transform.right, Vector3.up)
+            )
             {
                 activeHand = AvatarIKGoal.RightHand;
             }
@@ -142,7 +168,8 @@ public class StealthController : MonoBehaviour
             playerAnimator.SetIKPositionWeight(activeHand, 1);
             playerAnimator.SetIKRotationWeight(activeHand, 1);
 
-            Vector3 handPositionOnWall = transform.position + Vector3.up * 1.5f + transform.right * 0.5f;
+            Vector3 handPositionOnWall =
+                transform.position + Vector3.up * 1.5f + transform.right * 0.5f;
             playerAnimator.SetIKPosition(activeHand, handPositionOnWall);
             playerAnimator.SetIKRotation(activeHand, Quaternion.LookRotation(transform.forward));
         }

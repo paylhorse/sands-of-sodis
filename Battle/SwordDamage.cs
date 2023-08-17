@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SwordDamage : MonoBehaviour
 {
-    [SerializeField] private int damageAmount = 10;
+    [SerializeField]
+    private int damageAmount = 10;
 
     public BUnit wielder; // Wielder of the weapon
 
@@ -22,7 +23,8 @@ public class SwordDamage : MonoBehaviour
     }
 
     // Velocity Check
-    [SerializeField] private float minRequiredVelocity = 1.0f;
+    [SerializeField]
+    private float minRequiredVelocity = 1.0f;
     private Vector3 _previousPosition;
     private Vector3 _currentPosition;
 
@@ -40,10 +42,12 @@ public class SwordDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!Damaging) return;
+        if (!Damaging)
+            return;
 
         // Ignore collision with the wielder
-        if (other.gameObject == wielder.gameObject) return;
+        if (other.gameObject == wielder.gameObject)
+            return;
 
         // Check if the collided object has the Character script component
         BUnit character = other.GetComponent<BUnit>();
@@ -58,5 +62,4 @@ public class SwordDamage : MonoBehaviour
             wielder.hitRegistered = true;
         }
     }
-
 }

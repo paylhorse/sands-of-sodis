@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MeshLayoutGroup : MonoBehaviour
 {
-    public float spacing = 2.0f;  // Distance between each GameObject
+    public float spacing = 2.0f; // Distance between each GameObject
     private Transform[] children;
 
     void Start()

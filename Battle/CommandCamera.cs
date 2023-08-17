@@ -17,12 +17,18 @@ public class CommandCamera : MonoBehaviour
         if (target != null)
         {
             Vector3 targetScreenPos = cam.WorldToScreenPoint(target.position);
-            Vector3 desiredScreenPos = new Vector3(Screen.width * screenPosition.x, Screen.height * screenPosition.y, targetScreenPos.z);
+            Vector3 desiredScreenPos = new Vector3(
+                Screen.width * screenPosition.x,
+                Screen.height * screenPosition.y,
+                targetScreenPos.z
+            );
 
             if (targetScreenPos != desiredScreenPos)
             {
                 Vector3 diff = targetScreenPos - desiredScreenPos;
-                Vector3 moveDir = cam.ScreenToWorldPoint(targetScreenPos - diff) - cam.ScreenToWorldPoint(targetScreenPos);
+                Vector3 moveDir =
+                    cam.ScreenToWorldPoint(targetScreenPos - diff)
+                    - cam.ScreenToWorldPoint(targetScreenPos);
                 transform.position += moveDir;
             }
         }

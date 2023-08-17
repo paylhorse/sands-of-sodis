@@ -27,11 +27,19 @@ public class PowerButton : MonoBehaviour, IPointerClickHandler
     {
         if (buttonPressed)
         {
-            buttonTransform.localPosition = Vector3.Lerp(buttonTransform.localPosition, pressedButtonPosition, buttonPressSpeed * Time.deltaTime);
+            buttonTransform.localPosition = Vector3.Lerp(
+                buttonTransform.localPosition,
+                pressedButtonPosition,
+                buttonPressSpeed * Time.deltaTime
+            );
         }
         else
         {
-            buttonTransform.localPosition = Vector3.Lerp(buttonTransform.localPosition, initialButtonPosition, buttonPressSpeed * Time.deltaTime);
+            buttonTransform.localPosition = Vector3.Lerp(
+                buttonTransform.localPosition,
+                initialButtonPosition,
+                buttonPressSpeed * Time.deltaTime
+            );
         }
     }
 

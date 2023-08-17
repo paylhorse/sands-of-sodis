@@ -30,11 +30,16 @@ public class ArrangeInCircle : MonoBehaviour
             // Wait for the specified delay before fading in the next button
             if (i < childCount - 1)
             {
-                StartCoroutine(WaitAndFadeIn(delayBetweenButtons * (i + 1), transform.GetChild(i + 1).GetComponent<CanvasGroup>(), fadeInDuration));
+                StartCoroutine(
+                    WaitAndFadeIn(
+                        delayBetweenButtons * (i + 1),
+                        transform.GetChild(i + 1).GetComponent<CanvasGroup>(),
+                        fadeInDuration
+                    )
+                );
             }
         }
     }
-
 
     private IEnumerator WaitAndFadeIn(float delay, CanvasGroup canvasGroup, float duration)
     {

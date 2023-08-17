@@ -6,8 +6,11 @@ using TMPro;
 
 public class VitBar : MonoBehaviour
 {
-    [SerializeField] private Image healthBarFill;
-    [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField]
+    private Image healthBarFill;
+
+    [SerializeField]
+    private TextMeshProUGUI healthText;
 
     public void UpdateVitBar(int currentHealth, int maxHealth)
     {
@@ -16,4 +19,3 @@ public class VitBar : MonoBehaviour
         healthText.text = $"{currentHealth}/{maxHealth}";
     }
 }
-

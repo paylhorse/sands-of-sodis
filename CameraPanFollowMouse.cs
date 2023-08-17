@@ -22,10 +22,21 @@ public class CameraPanFollowMouse : MonoBehaviour
 
         Vector3 screenCenterToMouse = mousePosition - screenCenter;
 
-        float panX = Mathf.Clamp(screenCenterToMouse.x / (Screen.width * 0.5f), -1f, 1f) * maxPanDistance;
-        float panY = Mathf.Clamp(screenCenterToMouse.y / (Screen.height * 0.5f), -1f, 1f) * maxPanDistance;
+        float panX =
+            Mathf.Clamp(screenCenterToMouse.x / (Screen.width * 0.5f), -1f, 1f) * maxPanDistance;
+        float panY =
+            Mathf.Clamp(screenCenterToMouse.y / (Screen.height * 0.5f), -1f, 1f) * maxPanDistance;
 
-        Vector3 targetPan = new Vector3(initialPosition.x + panX, initialPosition.y + panY, initialPosition.z);
-        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, targetPan, ref currentVelocity, 1f / panSpeed);
+        Vector3 targetPan = new Vector3(
+            initialPosition.x + panX,
+            initialPosition.y + panY,
+            initialPosition.z
+        );
+        transform.localPosition = Vector3.SmoothDamp(
+            transform.localPosition,
+            targetPan,
+            ref currentVelocity,
+            1f / panSpeed
+        );
     }
 }

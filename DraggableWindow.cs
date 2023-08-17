@@ -1,7 +1,12 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DraggableUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DraggableUI
+    : MonoBehaviour,
+        IPointerDownHandler,
+        IBeginDragHandler,
+        IDragHandler,
+        IEndDragHandler
 {
     private Vector2 pointerOffset;
     private RectTransform rectTransform;
@@ -19,7 +24,14 @@ public class DraggableUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, eventData.position, eventData.pressEventCamera, out Vector2 localMousePosition))
+        if (
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                rectTransform,
+                eventData.position,
+                eventData.pressEventCamera,
+                out Vector2 localMousePosition
+            )
+        )
         {
             pointerOffset = localMousePosition - rectTransform.anchoredPosition;
         }
@@ -32,7 +44,14 @@ public class DraggableUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(headerRectTransform, eventData.position, eventData.pressEventCamera, out Vector2 localMousePosition))
+        if (
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                headerRectTransform,
+                eventData.position,
+                eventData.pressEventCamera,
+                out Vector2 localMousePosition
+            )
+        )
         {
             rectTransform.anchoredPosition = localMousePosition - pointerOffset;
         }
@@ -40,7 +59,14 @@ public class DraggableUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(headerRectTransform, eventData.position, eventData.pressEventCamera, out Vector2 localMousePosition))
+        if (
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                headerRectTransform,
+                eventData.position,
+                eventData.pressEventCamera,
+                out Vector2 localMousePosition
+            )
+        )
         {
             rectTransform.anchoredPosition = localMousePosition - pointerOffset;
         }

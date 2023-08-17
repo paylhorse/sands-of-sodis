@@ -22,7 +22,14 @@ public class EquipmentController : MonoBehaviour
 
     public float swordSlashAnimationLength = 0.2f;
 
-    private enum Equipment { None, Sword, Bow, Handaxe }
+    private enum Equipment
+    {
+        None,
+        Sword,
+        Bow,
+        Handaxe
+    }
+
     private Equipment currentEquipment = Equipment.None;
 
     // Controller Support
@@ -322,7 +329,7 @@ public class EquipmentController : MonoBehaviour
     {
         Debug.Log("Slashing Sword!");
         swordTrail.enabled = true;
-        animator.Play("SwordSlash", 0 ,0f);
+        animator.Play("SwordSlash", 0, 0f);
         StartCoroutine(DisableSwordTrailAfterAnimation());
     }
 
@@ -337,6 +344,6 @@ public class EquipmentController : MonoBehaviour
     private void HandaxeSlash()
     {
         Debug.Log("Slashing Handaxe!");
-        animator.Play("SwordSlash", 0 ,0f);
+        animator.Play("SwordSlash", 0, 0f);
     }
 }

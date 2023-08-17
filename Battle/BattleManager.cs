@@ -32,8 +32,12 @@ public class BattleManager : MonoBehaviour
     private bool timeFrozen = false;
 
     private BUnit player;
-    [SerializeField] private List<EnemyUnit> enemies;
-    [SerializeField] private List<BUnit> combatants;
+
+    [SerializeField]
+    private List<EnemyUnit> enemies;
+
+    [SerializeField]
+    private List<BUnit> combatants;
 
     public List<EnemyUnit> Enemies
     {
@@ -76,33 +80,35 @@ public class BattleManager : MonoBehaviour
     {
         if (!timeFrozen)
         {
-	    // Create a list to contain any enemies found at VIT = 0
+            // Create a list to contain any enemies found at VIT = 0
             List<EnemyUnit> deadEnemies = new List<EnemyUnit>();
 
             foreach (BUnit combatant in combatants)
             {
-		// KILL ENEMIES
+                // KILL ENEMIES
                 // If the combatant is an enemy and its health is less than or equal to 0, add it to the deadEnemies list
                 if (combatant is EnemyUnit enemy && enemy.GetCurrentVIT() <= 0)
                 {
                     deadEnemies.Add(enemy);
-                    continue;  // Skip the rest of the loop for this combatant
+                    continue; // Skip the rest of the loop for this combatant
                 }
 
-                if(combatant.actGauge > 0)
+                if (combatant.actGauge > 0)
                 {
                     Debug.Log("A Combatant is Acting!");
                     // If the character is in the ACT phase
-                    combatant.actGauge += (combatant.GetACT() * actFactor * Time.deltaTime) / combatant.GetCommandExecutionTime();
+                    combatant.actGauge +=
+                        (combatant.GetACT() * actFactor * Time.deltaTime)
+                        / combatant.GetCommandExecutionTime();
 
-                    if(combatant.actGauge >= ipMax)
+                    if (combatant.actGauge >= ipMax)
                     {
                         // If the ACT gauge is full, execute the command
-                        if(combatant is BUnit)
+                        if (combatant is BUnit)
                         {
                             ExecutePlayerCommand();
                         }
-                        else if(combatant is EnemyUnit)
+                        else if (combatant is EnemyUnit)
                         {
                             ExecuteEnemyCommand((EnemyUnit)combatant);
                         }
@@ -115,16 +121,16 @@ public class BattleManager : MonoBehaviour
                     // If the character is not in the ACT phase
                     combatant.GainIP(combatant.GetAGI() * ipFactor * Time.deltaTime);
 
-                    if(combatant.GetCurrentIP() >= ipMax)
+                    if (combatant.GetCurrentIP() >= ipMax)
                     {
-                        if(combatant is BUnit)
+                        if (combatant is BUnit)
                         {
                             FreezeTime();
                             CommandInput();
                             combatant.actGauge += 1;
                             combatant.ipGauge = 0;
                         }
-                        else if(combatant is EnemyUnit)
+                        else if (combatant is EnemyUnit)
                         {
                             combatant.SetIP(0);
                             //EnemyTurn((Enemy)combatant);
@@ -150,10 +156,10 @@ public class BattleManager : MonoBehaviour
     {
         float newPosition;
 
-        if(character.actGauge > 0)
+        if (character.actGauge > 0)
         {
             // If the character is in the ACT phase
-            newPosition = ( (character.actGauge / ipMax) * actBarLength ) + ipBarLength; 
+            newPosition = ((character.actGauge / ipMax) * actBarLength) + ipBarLength;
         }
         else
         {

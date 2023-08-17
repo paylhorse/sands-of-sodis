@@ -23,7 +23,11 @@ public class QuadSway : MonoBehaviour
     {
         for (int i = 0; i < originalVertices.Length; i++)
         {
-            float wave = Mathf.Sin(Time.time * speed + originalVertices[i].x * swayAxis + originalVertices[i].y * (1 - swayAxis));
+            float wave = Mathf.Sin(
+                Time.time * speed
+                    + originalVertices[i].x * swayAxis
+                    + originalVertices[i].y * (1 - swayAxis)
+            );
             displacedVertices[i] = originalVertices[i] + Vector3.right * wave * amplitude;
         }
 

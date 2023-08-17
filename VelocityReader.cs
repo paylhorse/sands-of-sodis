@@ -29,4 +29,3 @@ public class VelocityReader : MonoBehaviour
         // Debug.Log("Local Velocity: " + localVelocity);
     }
 }
-

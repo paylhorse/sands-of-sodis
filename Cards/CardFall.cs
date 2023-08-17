@@ -31,7 +31,8 @@ public class CardFall : MonoBehaviour
         Vector3 randomAngularVelocity = new Vector3(
             Random.Range(-maxRandomAngularVelocity.x, maxRandomAngularVelocity.x),
             Random.Range(-maxRandomAngularVelocity.y, maxRandomAngularVelocity.y),
-            Random.Range(-maxRandomAngularVelocity.z, maxRandomAngularVelocity.z));
+            Random.Range(-maxRandomAngularVelocity.z, maxRandomAngularVelocity.z)
+        );
         rb.angularVelocity = randomAngularVelocity;
     }
 

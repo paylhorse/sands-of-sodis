@@ -2,10 +2,17 @@ using UnityEngine;
 
 public class Hookshot : MonoBehaviour
 {
-    [SerializeField] private GameObject hookshotPrefab;
-    [SerializeField] private float hookshotSpeed = 10f;
-    [SerializeField] private float pullSpeed = 5f;
-    [SerializeField] private KeyCode hookshotKey = KeyCode.Mouse1;
+    [SerializeField]
+    private GameObject hookshotPrefab;
+
+    [SerializeField]
+    private float hookshotSpeed = 10f;
+
+    [SerializeField]
+    private float pullSpeed = 5f;
+
+    [SerializeField]
+    private KeyCode hookshotKey = KeyCode.Mouse1;
 
     private GameObject hookshotInstance;
     private LineRenderer lineRenderer;
@@ -62,7 +69,11 @@ public class Hookshot : MonoBehaviour
 
     private void PullCharacter()
     {
-        Vector3 newPosition = Vector3.MoveTowards(transform.position, hookshotInstance.transform.position, pullSpeed * Time.deltaTime);
+        Vector3 newPosition = Vector3.MoveTowards(
+            transform.position,
+            hookshotInstance.transform.position,
+            pullSpeed * Time.deltaTime
+        );
         newPosition.y = transform.position.y; // Keep the character at the same height (remove this line if you want vertical movement)
         transform.position = newPosition;
     }
@@ -78,4 +89,3 @@ public class Hookshot : MonoBehaviour
         }
     }
 }
-

@@ -5,7 +5,7 @@ using UnityEngine;
 // **** Controls the Main Camera of the Battle Scene
 
 public class BattleCamera : MonoBehaviour
-{	
+{
     public Camera mainCam;
 
     private BattleManager battleManager;
@@ -27,7 +27,7 @@ public class BattleCamera : MonoBehaviour
 
     private void Start()
     {
-	// Find BattleManager    
+        // Find BattleManager
         battleManager = FindObjectOfType<BattleManager>();
 
         // Save original position
@@ -40,7 +40,7 @@ public class BattleCamera : MonoBehaviour
     void Update()
     {
         if (!isFocused)
-        KeepCameraCenteredOnCombatants();
+            KeepCameraCenteredOnCombatants();
     }
 
     public void MoveToSelectCam()
@@ -67,10 +67,20 @@ public class BattleCamera : MonoBehaviour
     public void ReturnToMain()
     {
         isFocused = false;
-        StartCoroutine(TransitionToTransform(mainCamInitialPosition, mainCamInitialRotation, mainCamInitialOrthographicSize));
+        StartCoroutine(
+            TransitionToTransform(
+                mainCamInitialPosition,
+                mainCamInitialRotation,
+                mainCamInitialOrthographicSize
+            )
+        );
     }
 
-    private IEnumerator TransitionToTransform(Vector3 targetPosition, Quaternion targetRotation, float targetOrthographicSize)
+    private IEnumerator TransitionToTransform(
+        Vector3 targetPosition,
+        Quaternion targetRotation,
+        float targetOrthographicSize
+    )
     {
         Debug.Log("Transitioning Camera...");
         float elapsedTime = 0;
@@ -86,8 +96,16 @@ public class BattleCamera : MonoBehaviour
             float smoothStepT = Mathf.SmoothStep(0, 1, t);
 
             mainCam.transform.position = Vector3.Lerp(startPosition, targetPosition, smoothStepT);
-            mainCam.transform.rotation = Quaternion.Lerp(startRotation, targetRotation, smoothStepT);
-            mainCam.orthographicSize = Mathf.Lerp(startOrthographicSize, targetOrthographicSize, smoothStepT);
+            mainCam.transform.rotation = Quaternion.Lerp(
+                startRotation,
+                targetRotation,
+                smoothStepT
+            );
+            mainCam.orthographicSize = Mathf.Lerp(
+                startOrthographicSize,
+                targetOrthographicSize,
+                smoothStepT
+            );
 
             yield return null;
         }
@@ -108,7 +126,11 @@ public class BattleCamera : MonoBehaviour
 
             foreach (BUnit combatant in combatants)
             {
-                sumPosition += new Vector3(combatant.transform.position.x, 0, combatant.transform.position.z);
+                sumPosition += new Vector3(
+                    combatant.transform.position.x,
+                    0,
+                    combatant.transform.position.z
+                );
             }
 
             Vector3 centroidPosition = sumPosition / combatants.Count;
@@ -118,7 +140,10 @@ public class BattleCamera : MonoBehaviour
 
             foreach (BUnit combatant in combatants)
             {
-                float distance = Vector3.Distance(centroidPosition, new Vector3(combatant.transform.position.x, 0, combatant.transform.position.z));
+                float distance = Vector3.Distance(
+                    centroidPosition,
+                    new Vector3(combatant.transform.position.x, 0, combatant.transform.position.z)
+                );
                 radius = Mathf.Max(radius, distance);
             }
 
@@ -128,11 +153,11 @@ public class BattleCamera : MonoBehaviour
             // Adjust the camera position so the centroid is in view
             Vector3 targetPosition = centroidPosition;
 
-	    // Retain the original camera height
-            targetPosition.y = mainCam.transform.position.y; 
+            // Retain the original camera height
+            targetPosition.y = mainCam.transform.position.y;
 
             // Define an offset along the XZ plane
-            Vector3 offset = new Vector3(-6, 0, -5); 
+            Vector3 offset = new Vector3(-6, 0, -5);
 
             // Apply the offset to the target position
             targetPosition += offset;
@@ -149,7 +174,7 @@ public class BattleCamera : MonoBehaviour
         Vector3 pos = position + new Vector3(x, 0, z);
         Vector3 newPos = pos;
         Vector3 lastPos = pos;
-        for(theta = 0.1f; theta < Mathf.PI * 2; theta += 0.1f)
+        for (theta = 0.1f; theta < Mathf.PI * 2; theta += 0.1f)
         {
             x = radius * Mathf.Cos(theta);
             z = radius * Mathf.Sin(theta);

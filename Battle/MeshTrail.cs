@@ -20,36 +20,35 @@ public class MeshTrail : MonoBehaviour
 
     private bool isTrailActive;
 
-    void Start()
-    {
-        
-    }
+    void Start() { }
 
     void Update()
     {
-        if(!isTrailActive)
+        if (!isTrailActive)
         {
             isTrailActive = true;
             StartCoroutine(ActivateTrail(ghostLifetime));
         }
-        
     }
 
     IEnumerator ActivateTrail(float timeActive)
     {
-        while(timeActive > 0)
+        while (timeActive > 0)
         {
             timeActive -= meshRefreshRate;
 
-            if(skinnedMeshRenderers == null)
+            if (skinnedMeshRenderers == null)
             {
                 skinnedMeshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
             }
 
-            for(int i=0; i<skinnedMeshRenderers.Length; i++)
+            for (int i = 0; i < skinnedMeshRenderers.Length; i++)
             {
                 GameObject ghostObject = new GameObject();
-                ghostObject.transform.SetPositionAndRotation(positionToSpawn.position, positionToSpawn.rotation);
+                ghostObject.transform.SetPositionAndRotation(
+                    positionToSpawn.position,
+                    positionToSpawn.rotation
+                );
 
                 MeshRenderer ghostRender = ghostObject.AddComponent<MeshRenderer>();
                 MeshFilter ghostFilter = ghostObject.AddComponent<MeshFilter>();

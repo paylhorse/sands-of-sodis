@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class SwayingMotion : MonoBehaviour
 {
-    [SerializeField] private float rotationAngle = 5f;
-    [SerializeField] private float rotationSpeed = 1f;
+    [SerializeField]
+    private float rotationAngle = 5f;
+
+    [SerializeField]
+    private float rotationSpeed = 1f;
 
     public bool otherAxis;
 
@@ -22,14 +25,23 @@ public class SwayingMotion : MonoBehaviour
     {
         if (otherAxis)
         {
-            float yRotation = initialRotationY + Mathf.Sin(Time.time * rotationSpeed) * rotationAngle;
-            transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, yRotation, transform.localEulerAngles.z);
+            float yRotation =
+                initialRotationY + Mathf.Sin(Time.time * rotationSpeed) * rotationAngle;
+            transform.localRotation = Quaternion.Euler(
+                transform.localEulerAngles.x,
+                yRotation,
+                transform.localEulerAngles.z
+            );
         }
         else
         {
-            float zRotation = initialRotationZ + Mathf.Sin(Time.time * rotationSpeed) * rotationAngle;
-            transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, zRotation);
+            float zRotation =
+                initialRotationZ + Mathf.Sin(Time.time * rotationSpeed) * rotationAngle;
+            transform.localRotation = Quaternion.Euler(
+                transform.localEulerAngles.x,
+                transform.localEulerAngles.y,
+                zRotation
+            );
         }
     }
 }
-
