@@ -6,7 +6,7 @@
 
 ## Technical Overview
 
-SANDS OF SODIS is built atop an advanced Unity framework, inspired by the code structure of PSX/Dreamcast-era JRPGs. We employ [DarkMoonSharp](https://github.com/paylhorse/darkmoonsharp) to harness the power of LuaJIT, creating a flexible and high-performance "kernel" of sorts around the core game logic. The C# codebase within adheres to the ECS paradigm, and is optimized with Burst compilation at runtime. Our performance and stability is benchmarked against hand-crafted C++ engines akin to Valve's Source, and nothing less.
+SANDS OF SODIS is built atop an advanced Unity framework, inspired by the code structure of PSX/Dreamcast-era JRPGs. We employ [DarkMoonSharp](https://github.com/paylhorse/darkmoonsharp) to harness the power of LuaJIT, creating a flexible and high-performance "kernel" of sorts around the core game logic. The C# codebase within employs ECS modules, which are optimized with Burst compilation at runtime (DOTS). Our performance and stability is benchmarked against hand-crafted C++ engines akin to Valve's Source, and nothing less.
 
 ## Console Commands
 
