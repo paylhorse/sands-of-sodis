@@ -4,11 +4,17 @@
 
 **Homepage:** [sandsofsodis.com](https://www.sandsofsodis.com/)
 
-## Technical Overview
+## NOTICE
+
+**SANDS OF SODIS is undergoing transition to a propietary Rust-based engine.**
+
+This repo has been archived.
+
+## Technical Overview [DEPRECATED]
 
 SANDS OF SODIS is built atop an advanced Unity framework, inspired by the code structure of PSX/Dreamcast-era JRPGs. We employ [DarkMoonSharp](https://github.com/paylhorse/darkmoonsharp) to harness the power of LuaJIT, creating a flexible and high-performance "kernel" replication around the core game logic. The C# codebase within employs ECS modules, which are optimized with Burst compilation at runtime (DOTS). Our performance and stability is benchmarked against hand-crafted C++ engines akin to Valve's Source, and nothing less.
 
-## Console Commands
+## Console Commands [DEPRECATED]
 
 Below is a detailed look at our robust Quantum Console-based interface, which we use internally for balancing. You can access it from the Dev Room. Additionally, we'll soon be integrating a Lua-based modding interface, allowing you to create your own weapons, units or gamemodes!
 
