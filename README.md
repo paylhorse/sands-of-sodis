@@ -6,7 +6,7 @@
 
 ## NOTICE
 
-**SANDS OF SODIS is undergoing transition to a propietary Rust-based engine.**
+**SANDS OF SODIS is undergoing transition to a propietary Ocaml-based engine.**
 
 This repo has been archived.
 
